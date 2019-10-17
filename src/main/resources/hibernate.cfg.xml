@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/Railway</property>
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+      <mapping class="com.sedbproj.Railways.RouteEntity"/>
+      <mapping class="com.sedbproj.Railways.RouteHasStationEntity"/>
+      <mapping class="com.sedbproj.Railways.RouteHasTrainEntity"/>
+      <mapping class="com.sedbproj.Railways.StationEntity"/>
+      <mapping class="com.sedbproj.Railways.TicketEntity"/>
+      <mapping class="com.sedbproj.Railways.TrainEntity"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
