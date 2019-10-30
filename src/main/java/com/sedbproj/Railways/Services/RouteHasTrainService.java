@@ -1,8 +1,7 @@
 package com.sedbproj.Railways.Services;
 
 import com.sedbproj.Railways.Repositories.RouteHasTrainRepository;
-import com.sedbproj.Railways.RouteEntity;
-import com.sedbproj.Railways.RouteHasTrainEntity;
+import com.sedbproj.Railways.Entities.RouteHasTrainEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class RouteHasTrainService {

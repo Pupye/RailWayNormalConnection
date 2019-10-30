@@ -6,12 +6,12 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306/Railway</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-      <mapping class="com.sedbproj.Railways.RouteEntity"/>
-      <mapping class="com.sedbproj.Railways.RouteHasStationEntity"/>
-      <mapping class="com.sedbproj.Railways.RouteHasTrainEntity"/>
-      <mapping class="com.sedbproj.Railways.StationEntity"/>
-      <mapping class="com.sedbproj.Railways.TicketEntity"/>
-      <mapping class="com.sedbproj.Railways.TrainEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.RouteEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.RouteHasStationEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.RouteHasTrainEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.StationEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.TicketEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.TrainEntity"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

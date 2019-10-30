@@ -1,7 +1,7 @@
 package com.sedbproj.Railways.Services;
 
 import com.sedbproj.Railways.Repositories.RouteHasStationRepository;
-import com.sedbproj.Railways.RouteHasStationEntity;
+import com.sedbproj.Railways.Entities.RouteHasStationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

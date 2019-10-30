@@ -1,17 +1,16 @@
-package com.sedbproj.Railways;
+package com.sedbproj.Railways.Entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "ROUTE_has_TRAIN", schema = "Railway", catalog = "")
-@IdClass(RouteHasTrainEntityPK.class)
-public class RouteHasTrainEntity {
+public class RouteHasTrainEntityPK implements Serializable {
     private int routeIdRoute;
     private int trainIdTrain;
 
-    @Id
     @Column(name = "ROUTE_idROUTE", nullable = false)
+    @Id
     public int getRouteIdRoute() {
         return routeIdRoute;
     }
@@ -20,8 +19,8 @@ public class RouteHasTrainEntity {
         this.routeIdRoute = routeIdRoute;
     }
 
-    @Id
     @Column(name = "TRAIN_idTRAIN", nullable = false)
+    @Id
     public int getTrainIdTrain() {
         return trainIdTrain;
     }
@@ -34,7 +33,7 @@ public class RouteHasTrainEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RouteHasTrainEntity that = (RouteHasTrainEntity) o;
+        RouteHasTrainEntityPK that = (RouteHasTrainEntityPK) o;
         return routeIdRoute == that.routeIdRoute &&
                 trainIdTrain == that.trainIdTrain;
     }

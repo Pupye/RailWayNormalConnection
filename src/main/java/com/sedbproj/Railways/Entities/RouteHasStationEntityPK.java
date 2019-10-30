@@ -1,13 +1,13 @@
-package com.sedbproj.Railways;
+package com.sedbproj.Railways.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class RouteHasTrainEntityPK implements Serializable {
+public class RouteHasStationEntityPK implements Serializable {
     private int routeIdRoute;
-    private int trainIdTrain;
+    private int stationIdStation;
 
     @Column(name = "ROUTE_idROUTE", nullable = false)
     @Id
@@ -19,27 +19,27 @@ public class RouteHasTrainEntityPK implements Serializable {
         this.routeIdRoute = routeIdRoute;
     }
 
-    @Column(name = "TRAIN_idTRAIN", nullable = false)
+    @Column(name = "STATION_idSTATION", nullable = false)
     @Id
-    public int getTrainIdTrain() {
-        return trainIdTrain;
+    public int getStationIdStation() {
+        return stationIdStation;
     }
 
-    public void setTrainIdTrain(int trainIdTrain) {
-        this.trainIdTrain = trainIdTrain;
+    public void setStationIdStation(int stationIdStation) {
+        this.stationIdStation = stationIdStation;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RouteHasTrainEntityPK that = (RouteHasTrainEntityPK) o;
+        RouteHasStationEntityPK that = (RouteHasStationEntityPK) o;
         return routeIdRoute == that.routeIdRoute &&
-                trainIdTrain == that.trainIdTrain;
+                stationIdStation == that.stationIdStation;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(routeIdRoute, trainIdTrain);
+        return Objects.hash(routeIdRoute, stationIdStation);
     }
 }

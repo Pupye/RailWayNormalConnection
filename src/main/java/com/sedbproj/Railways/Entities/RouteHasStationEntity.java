@@ -1,4 +1,4 @@
-package com.sedbproj.Railways;
+package com.sedbproj.Railways.Entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

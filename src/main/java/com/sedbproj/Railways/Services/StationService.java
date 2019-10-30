@@ -1,11 +1,11 @@
 package com.sedbproj.Railways.Services;
 
-import com.sedbproj.Railways.Repositories.RouteRepository;
 import com.sedbproj.Railways.Repositories.StationRepository;
-import com.sedbproj.Railways.RouteEntity;
-import com.sedbproj.Railways.StationEntity;
+import com.sedbproj.Railways.Entities.StationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class StationService {
@@ -18,5 +18,9 @@ public class StationService {
 
     public void createStation (StationEntity station){
         stationRepository.save(station);
+    }
+
+    public Optional <StationEntity> getStationById(Long id) {
+        return stationRepository.findById(id);
     }
 }

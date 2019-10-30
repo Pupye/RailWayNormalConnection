@@ -1,19 +1,21 @@
-package com.sedbproj.Railways;
+package com.sedbproj.Railways.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Objects;
 
-public class TicketEntityPK implements Serializable {
+@Entity
+@Table(name = "TICKET", schema = "Railway", catalog = "")
+@IdClass(TicketEntityPK.class)
+public class TicketEntity {
     private int seatNum;
     private int cargoNum;
+    private Double price;
     private int routeHasStationRouteIdRoute;
     private int routeHasStationStationIdStation;
     private int routeHasStationStationIdStation1;
 
-    @Column(name = "SeatNum", nullable = false)
     @Id
+    @Column(name = "SeatNum", nullable = false)
     public int getSeatNum() {
         return seatNum;
     }
@@ -22,8 +24,8 @@ public class TicketEntityPK implements Serializable {
         this.seatNum = seatNum;
     }
 
-    @Column(name = "CargoNum", nullable = false)
     @Id
+    @Column(name = "CargoNum", nullable = false)
     public int getCargoNum() {
         return cargoNum;
     }
@@ -32,8 +34,18 @@ public class TicketEntityPK implements Serializable {
         this.cargoNum = cargoNum;
     }
 
-    @Column(name = "ROUTE_has_STATION_ROUTE_idROUTE", nullable = false)
+    @Basic
+    @Column(name = "Price", nullable = true, precision = 0)
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Id
+    @Column(name = "ROUTE_has_STATION_ROUTE_idROUTE", nullable = false)
     public int getRouteHasStationRouteIdRoute() {
         return routeHasStationRouteIdRoute;
     }
@@ -42,8 +54,8 @@ public class TicketEntityPK implements Serializable {
         this.routeHasStationRouteIdRoute = routeHasStationRouteIdRoute;
     }
 
-    @Column(name = "ROUTE_has_STATION_STATION_idSTATION", nullable = false)
     @Id
+    @Column(name = "ROUTE_has_STATION_STATION_idSTATION", nullable = false)
     public int getRouteHasStationStationIdStation() {
         return routeHasStationStationIdStation;
     }
@@ -52,8 +64,8 @@ public class TicketEntityPK implements Serializable {
         this.routeHasStationStationIdStation = routeHasStationStationIdStation;
     }
 
-    @Column(name = "ROUTE_has_STATION_STATION_idSTATION1", nullable = false)
     @Id
+    @Column(name = "ROUTE_has_STATION_STATION_idSTATION1", nullable = false)
     public int getRouteHasStationStationIdStation1() {
         return routeHasStationStationIdStation1;
     }
@@ -66,16 +78,17 @@ public class TicketEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TicketEntityPK that = (TicketEntityPK) o;
+        TicketEntity that = (TicketEntity) o;
         return seatNum == that.seatNum &&
                 cargoNum == that.cargoNum &&
                 routeHasStationRouteIdRoute == that.routeHasStationRouteIdRoute &&
                 routeHasStationStationIdStation == that.routeHasStationStationIdStation &&
-                routeHasStationStationIdStation1 == that.routeHasStationStationIdStation1;
+                routeHasStationStationIdStation1 == that.routeHasStationStationIdStation1 &&
+                Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(seatNum, cargoNum, routeHasStationRouteIdRoute, routeHasStationStationIdStation, routeHasStationStationIdStation1);
+        return Objects.hash(seatNum, cargoNum, price, routeHasStationRouteIdRoute, routeHasStationStationIdStation, routeHasStationStationIdStation1);
     }
 }
