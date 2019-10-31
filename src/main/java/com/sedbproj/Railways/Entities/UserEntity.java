@@ -12,6 +12,32 @@ public class UserEntity {
     private String email;
     private String password;
 
+    public UserEntity(String fname, String lname, String email, String password) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserEntity(UserEntity user) {
+        if (!user.fname.equals("")) {
+            this.fname = user.fname;
+        }
+        if (!user.lname.equals("")) {
+            this.lname = user.lname;
+        }
+        if (!user.email.equals("")) {
+            this.email = user.email;
+        }
+        if (!user.password.equals("")) {
+            this.password = user.password;
+        }
+    }
+
+    public UserEntity() {
+
+    }
+
     @Id
     @Column(name = "UserId", nullable = false)
     public int getUserId() {
