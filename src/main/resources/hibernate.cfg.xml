@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306/Railway</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/RailwaysV2</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
       <mapping class="com.sedbproj.Railways.Entities.RouteEntity"/>
       <mapping class="com.sedbproj.Railways.Entities.RouteHasStationEntity"/>
@@ -12,6 +12,11 @@
       <mapping class="com.sedbproj.Railways.Entities.StationEntity"/>
       <mapping class="com.sedbproj.Railways.Entities.TicketEntity"/>
       <mapping class="com.sedbproj.Railways.Entities.TrainEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.BookEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.CarriageEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.EmployeeEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.PassengerEntity"/>
+      <mapping class="com.sedbproj.Railways.Entities.UserEntity"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

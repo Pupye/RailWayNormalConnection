@@ -4,23 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "STATION", schema = "Railway", catalog = "")
+@Table(name = "Station", schema = "RailwaysV2", catalog = "")
 public class StationEntity {
-    private int idStation;
+    private int stationId;
     private String name;
+    private String city;
 
     @Id
-    @Column(name = "idSTATION", nullable = false)
-    public int getIdStation() {
-        return idStation;
+    @Column(name = "StationId", nullable = false)
+    public int getStationId() {
+        return stationId;
     }
 
-    public void setIdStation(int idStation) {
-        this.idStation = idStation;
+    public void setStationId(int stationId) {
+        this.stationId = stationId;
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, length = 45)
+    @Column(name = "Name", nullable = true, length = 45)
     public String getName() {
         return name;
     }
@@ -29,17 +30,28 @@ public class StationEntity {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "City", nullable = false, length = 45)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StationEntity that = (StationEntity) o;
-        return idStation == that.idStation &&
-                Objects.equals(name, that.name);
+        return stationId == that.stationId &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(city, that.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idStation, name);
+        return Objects.hash(stationId, name, city);
     }
 }

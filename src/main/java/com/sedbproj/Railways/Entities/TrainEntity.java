@@ -5,53 +5,31 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TRAIN", schema = "Railway", catalog = "")
+@Table(name = "Train", schema = "RailwaysV2", catalog = "")
 public class TrainEntity {
-    private int idTrain;
-    private int capacity;
+    private int trainId;
     private String model;
-    private double mileage;
     private Timestamp issuedDate;
-    private Integer maxCargoCap;
+    private Double mileage;
 
     @Id
-    @Column(name = "idTRAIN", nullable = false)
-    public int getIdTrain() {
-        return idTrain;
+    @Column(name = "TrainId", nullable = false)
+    public int getTrainId() {
+        return trainId;
     }
 
-    public void setIdTrain(int idTrain) {
-        this.idTrain = idTrain;
-    }
-
-    @Basic
-    @Column(name = "Capacity", nullable = false)
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setTrainId(int trainId) {
+        this.trainId = trainId;
     }
 
     @Basic
-    @Column(name = "Model", nullable = false, length = 45)
+    @Column(name = "Model", nullable = true, length = 45)
     public String getModel() {
         return model;
     }
 
     public void setModel(String model) {
         this.model = model;
-    }
-
-    @Basic
-    @Column(name = "Mileage", nullable = false, precision = 0)
-    public double getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(double mileage) {
-        this.mileage = mileage;
     }
 
     @Basic
@@ -65,13 +43,13 @@ public class TrainEntity {
     }
 
     @Basic
-    @Column(name = "MaxCargoCap", nullable = true)
-    public Integer getMaxCargoCap() {
-        return maxCargoCap;
+    @Column(name = "Mileage", nullable = true, precision = 0)
+    public Double getMileage() {
+        return mileage;
     }
 
-    public void setMaxCargoCap(Integer maxCargoCap) {
-        this.maxCargoCap = maxCargoCap;
+    public void setMileage(Double mileage) {
+        this.mileage = mileage;
     }
 
     @Override
@@ -79,16 +57,14 @@ public class TrainEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TrainEntity that = (TrainEntity) o;
-        return idTrain == that.idTrain &&
-                capacity == that.capacity &&
-                Double.compare(that.mileage, mileage) == 0 &&
+        return trainId == that.trainId &&
                 Objects.equals(model, that.model) &&
                 Objects.equals(issuedDate, that.issuedDate) &&
-                Objects.equals(maxCargoCap, that.maxCargoCap);
+                Objects.equals(mileage, that.mileage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idTrain, capacity, model, mileage, issuedDate, maxCargoCap);
+        return Objects.hash(trainId, model, issuedDate, mileage);
     }
 }

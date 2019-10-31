@@ -1,20 +1,22 @@
 package com.sedbproj.Railways.Controllers;
 
-import com.sedbproj.Railways.Repositories.RouteHasStationRepository;
-import com.sedbproj.Railways.Repositories.RouteRepository;
 import com.sedbproj.Railways.Entities.RouteEntity;
-import com.sedbproj.Railways.Entities.RouteHasStationEntity;
+import com.sedbproj.Railways.Repositories.RouteRepository;
 import com.sedbproj.Railways.Wrappers.RouteWrapper;
 import com.sedbproj.Railways.Wrappers.StationWrapper;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+//TODO refactor this class
 //route is created automatically
 //we should have functionality to update route
 //route should have name?? then just click on that we get stations
@@ -25,8 +27,6 @@ import java.util.List;
 public class RouteController {
     @Autowired
     private RouteRepository routeRepository;
-    @Autowired
-    private RouteHasStationRepository routeHasStationRepository;
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET)
@@ -39,11 +39,8 @@ public class RouteController {
     public void createRouteInstance(@RequestBody RouteWrapper routeStations){
         //getting the date of the first dep time and setting it to route instance
 
-        RouteEntity route1 = new RouteEntity(routeStations.getStations().get(0).getDepTime());
-        routeRepository.save(route1);
-        int routeId  = routeRepository.findTopByOrderByIdRouteDesc().getIdRoute();
-
         List<StationWrapper> stationWrappers = routeStations.getStations();
+        int id = 0;
         for (int i = 0; i < stationWrappers.size(); i++){
             Timestamp depTime = null;
             Timestamp arrTime = null;
@@ -54,7 +51,14 @@ public class RouteController {
                 depTime = new java.sql.Timestamp(paredDate.getTime());
                 arrTime = new java.sql.Timestamp(paredDate1.getTime());
             }catch (Exception e){}
-            routeHasStationRepository.save(new RouteHasStationEntity(routeId, stationWrappers.get(i).getId(), i, routeStations.getCapacity(), depTime, arrTime));
+
+
+            if(i == 0) {
+                routeRepository.save(new RouteEntity(stationWrappers.get(i).getId(), 1, arrTime, depTime, i, 0, " ", depTime));
+                id = routeRepository.findTopByOrderByRouteIdDesc().getRouteId();
+            }
+            System.out.println(id);
+            routeRepository.save(new RouteEntity(id,stationWrappers.get(i).getId(), 1, arrTime, depTime, i, 0, " ", depTime));
 
         }
 
