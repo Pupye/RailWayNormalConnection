@@ -4,7 +4,7 @@ import com.sedbproj.Railways.Entities.StationEntity;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface StationRepository extends CrudRepository<StationEntity, Long> {
+public interface StationRepository extends CrudRepository<StationEntity, Integer> {
 
     StationEntity findByStationId(Integer Id);
 }

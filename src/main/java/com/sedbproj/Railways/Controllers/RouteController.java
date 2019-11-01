@@ -25,8 +25,8 @@ public class RouteController {
     private RouteRepository routeRepository;
     @Autowired
     private StationRepository stationRepository;
-    @CrossOrigin(origins="*")
 
+    @CrossOrigin(origins="*")
     @RequestMapping(value = "/search",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RouteWrapperGet getAll(@RequestBody SearchGet search){
 
