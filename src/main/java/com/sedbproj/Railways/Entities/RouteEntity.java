@@ -14,50 +14,20 @@ public class RouteEntity {
     private Timestamp arrDate;
     private Timestamp depDate;
     private int ordering;
-    private int cancelled;
+    private Byte cancelled;
     private String cancelDesc;
     private Timestamp cancelDate;
 
-    public RouteEntity( Integer stationId,
-                        int trainId,
-                        Timestamp arrTime,
-                        Timestamp depTime,
-                        int ordering,
-                        int cancelStatus,
-                        String cancelDesc,
-                        Timestamp cancelDate) {
-        this.stationId = stationId;
-        this.trainId = trainId;
-        this.arrDate = arrTime;
-        this.depDate = depTime;
-        this.ordering = ordering;
-        this.cancelled = cancelStatus;
-        this.cancelDesc = cancelDesc;
-        this.cancelDate = cancelDate;
-    }
-    public RouteEntity(
-                        Integer id,
-                        Integer stationId,
-                        int trainId,
-                        Timestamp arrTime,
-                        Timestamp depTime,
-                        int ordering,
-                        int cancelStatus,
-                        String cancelDesc,
-                        Timestamp cancelDate) {
-        this.routeId = id;
-        this.stationId = stationId;
-        this.trainId = trainId;
-        this.arrDate = arrTime;
-        this.depDate = depTime;
-        this.ordering = ordering;
-        this.cancelled = cancelStatus;
-        this.cancelDesc = cancelDesc;
-        this.cancelDate = cancelDate;
+    public RouteEntity(){
+
     }
 
-    public RouteEntity(){
+    public RouteEntity(Integer id, int i, Timestamp arrTime, Timestamp depTime, int i1, int i2, String s, Timestamp depTime1) {
     }
+
+    public RouteEntity(int id, Integer id1, int i, Timestamp arrTime, Timestamp depTime, int i1, int i2, String s, Timestamp depTime1) {
+    }
+
     @Id
     @Column(name = "RouteId", nullable = false)
     public int getRouteId() {
@@ -120,11 +90,11 @@ public class RouteEntity {
 
     @Basic
     @Column(name = "Cancelled", nullable = true)
-    public int getCancelled() {
+    public Byte getCancelled() {
         return cancelled;
     }
 
-    public void setCancelled(int cancelled) {
+    public void setCancelled(Byte cancelled) {
         this.cancelled = cancelled;
     }
 

@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@IdClass(CarriageEntityPK.class)
 @Table(name = "Carriage", schema = "RailwaysV2", catalog = "")
 public class CarriageEntity {
     private int carriageId;
     private String type;
     private int totalSeats;
     private int trainId;
+
     @Id
     @Column(name = "CarriageId", nullable = false)
     public int getCarriageId() {
@@ -20,13 +22,16 @@ public class CarriageEntity {
         this.carriageId = carriageId;
     }
 
+    @Column(name = "trainId", nullable = false)
     @Id
-    @Column(name = "TrainId", nullable = false)
     public int getTrainId() {
         return trainId;
     }
 
-    public void setTrainId(int trainId){this.trainId = trainId;}
+    public void setTrainId(int trainId) {
+        this.trainId = trainId;
+    }
+
 
     @Basic
     @Column(name = "Type", nullable = true, length = 45)
@@ -53,7 +58,7 @@ public class CarriageEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarriageEntity that = (CarriageEntity) o;
-        return carriageId == that.carriageId && trainId == that.trainId &&
+        return carriageId == that.carriageId &&
                 totalSeats == that.totalSeats &&
                 Objects.equals(type, that.type);
     }
