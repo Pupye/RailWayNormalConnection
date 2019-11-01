@@ -4,11 +4,13 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@IdClass(CarriageEntityPK.class)
 @Table(name = "Carriage", schema = "RailwaysV2", catalog = "")
 public class CarriageEntity {
     private int carriageId;
     private String type;
     private int totalSeats;
+    private int trainId;
 
     @Id
     @Column(name = "CarriageId", nullable = false)
@@ -19,6 +21,17 @@ public class CarriageEntity {
     public void setCarriageId(int carriageId) {
         this.carriageId = carriageId;
     }
+
+    @Column(name = "trainId", nullable = false)
+    @Id
+    public int getTrainId() {
+        return trainId;
+    }
+
+    public void setTrainId(int trainId) {
+        this.trainId = trainId;
+    }
+
 
     @Basic
     @Column(name = "Type", nullable = true, length = 45)
