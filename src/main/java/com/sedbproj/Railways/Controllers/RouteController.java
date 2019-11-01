@@ -2,8 +2,8 @@ package com.sedbproj.Railways.Controllers;
 
 import com.sedbproj.Railways.Entities.RouteEntity;
 import com.sedbproj.Railways.Repositories.RouteRepository;
-import com.sedbproj.Railways.Wrappers.RouteWrapper;
-import com.sedbproj.Railways.Wrappers.StationWrapper;
+import com.sedbproj.Railways.Repositories.StationRepository;
+import com.sedbproj.Railways.Wrappers.*;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 //TODO refactor this class
 //route is created automatically
@@ -27,11 +24,55 @@ import java.util.List;
 public class RouteController {
     @Autowired
     private RouteRepository routeRepository;
-
+    @Autowired
+    private StationRepository stationRepository;
     @CrossOrigin(origins="*")
-    @RequestMapping(method = RequestMethod.GET)
-    public Iterable<RouteEntity> getAll(){
-        return routeRepository.findAll();
+
+    @RequestMapping(value = "/search",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RouteWrapperGet getAll(@RequestBody SearchGet search){
+
+        Timestamp dateStart = null;
+        Timestamp dateEnd = null;
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            Date paredDate = dateFormat.parse(search.getDate()+" 00:00:00");
+            Date paredDate1 = dateFormat.parse(search.getDate()+" 23:59:59");
+            dateStart = new java.sql.Timestamp(paredDate.getTime());
+            dateEnd = new java.sql.Timestamp(paredDate1.getTime());
+        }catch (Exception e){}
+
+        List<RouteEntity> routeEntitiesDep = routeRepository.findRouteEntitiesByDepDateBetweenAndStationId(dateStart, dateEnd, search.getArrivalStationId());
+
+        Set<Integer> routeIds = new HashSet<>();
+        List<StationWrapperGet> wrappedStations = new ArrayList<>();
+        RouteWrapperGet response = new RouteWrapperGet();
+
+        //order may differ considerIt
+        for(RouteEntity r : routeEntitiesDep){
+            routeIds.add(r.getRouteId());
+        }
+
+        for (Integer id : routeIds ){
+            List<RouteEntity> routeEntitiesArr = routeRepository.findRouteEntitiesByRouteIdOrderByOrdering(id);
+            StationWrapperGet departure =null;
+            for (RouteEntity r : routeEntitiesArr){
+
+                if(r.getStationId() == search.getArrivalStationId()){
+                    departure = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
+                }
+
+                if(r.getStationId() == search.getDestinationStationId()){
+                    StationWrapperGet arrival = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
+                    //here i get route with departure and arrival searched
+                    wrappedStations.add(departure);
+                    wrappedStations.add(arrival);
+                    response.setStationWrapperGets(wrappedStations);
+                    response.setRouteId(r.getRouteId());
+                    response.setTrainId(r.getTrainId());
+                }
+            }
+        }
+        return response;
     }
 
     @CrossOrigin(origins="*")
