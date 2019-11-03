@@ -23,7 +23,7 @@ public class StationController {
         return stationService.findAll();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Optional<StationEntity> getStationById(@PathVariable("id") int id){

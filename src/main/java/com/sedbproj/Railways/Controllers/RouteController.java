@@ -23,55 +23,54 @@ import java.util.*;
 public class RouteController {
     @Autowired
     private RouteRepository routeRepository;
+
     @Autowired
     private StationRepository stationRepository;
 
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/search",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RouteWrapperGet getAll(@RequestBody SearchGet search){
+    public List<RouteWrapperGet> getRoutesWithStations(@RequestBody SearchGet search){
+        Timestamp dateStart = Timestamp.valueOf(search.getDate() + " 00:00:00");
+        Timestamp dateEnd = Timestamp.valueOf(search.getDate() + " 23:59:59");
+        List <RouteEntity> routeEntities = routeRepository.findRouteEntitiesByStationsAndDepDate(search.getArrivalStationId(),search.getDestinationStationId(), dateStart, dateEnd);
 
-        Timestamp dateStart = null;
-        Timestamp dateEnd = null;
-        try{
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            Date paredDate = dateFormat.parse(search.getDate()+" 00:00:00");
-            Date paredDate1 = dateFormat.parse(search.getDate()+" 23:59:59");
-            dateStart = new java.sql.Timestamp(paredDate.getTime());
-            dateEnd = new java.sql.Timestamp(paredDate1.getTime());
-        }catch (Exception e){}
+        Integer currRouteIdTemp = null;
+        List<RouteWrapperGet> wrappedRoutes = new ArrayList<>();
+        RouteWrapperGet wrappedRoute = new RouteWrapperGet();
+        List <StationWrapperGet> wrappedStations = new ArrayList<>();
+        for (int i = 0; i < routeEntities.size(); i++){
+            StationWrapperGet currentStation = new StationWrapperGet(routeEntities.get(i).getStationId(),
+                                                                  stationRepository.findByStationId(routeEntities.get(i).getStationId()).getName(),
+                                                                  routeEntities.get(i).getArrDate().toString(),
+                                                                  routeEntities.get(i).toString());
+            if (currRouteIdTemp != null && currRouteIdTemp == routeEntities.get(i).getRouteId()){
 
-        List<RouteEntity> routeEntitiesDep = routeRepository.findRouteEntitiesByDepDateBetweenAndStationId(dateStart, dateEnd, search.getArrivalStationId());
-
-        Set<Integer> routeIds = new HashSet<>();
-        List<StationWrapperGet> wrappedStations = new ArrayList<>();
-        RouteWrapperGet response = new RouteWrapperGet();
-
-        //order may differ considerIt
-        for(RouteEntity r : routeEntitiesDep){
-            routeIds.add(r.getRouteId());
-        }
-
-        for (Integer id : routeIds ){
-            List<RouteEntity> routeEntitiesArr = routeRepository.findRouteEntitiesByRouteIdOrderByOrdering(id);
-            StationWrapperGet departure =null;
-            for (RouteEntity r : routeEntitiesArr){
-
-                if(r.getStationId() == search.getArrivalStationId()){
-                    departure = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
+                wrappedStations.add(currentStation);
+                if(i == routeEntities.size() - 1) {
+                    wrappedRoute.setStationWrapperGets(wrappedStations);
+                    wrappedRoutes.add(wrappedRoute);
+                    return wrappedRoutes;
                 }
+            }else {
+                if(currRouteIdTemp == null){
+                    wrappedRoute.setRouteId(routeEntities.get(i).getRouteId());
+                    wrappedRoute.setTrainId(routeEntities.get(i).getTrainId());
+                    wrappedStations.add(currentStation);
+                }else {
+                    wrappedRoute.setStationWrapperGets(wrappedStations); //setting stations of wraooedroute
+                    wrappedRoutes.add(wrappedRoute); // adding it into response
+                    wrappedRoute = new RouteWrapperGet(); // renew wrapper Route
+                    wrappedRoute.setRouteId(routeEntities.get(i).getRouteId());
+                    wrappedRoute.setTrainId(routeEntities.get(i).getTrainId());
 
-                if(r.getStationId() == search.getDestinationStationId()){
-                    StationWrapperGet arrival = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
-                    //here i get route with departure and arrival searched
-                    wrappedStations.add(departure);
-                    wrappedStations.add(arrival);
-                    response.setStationWrapperGets(wrappedStations);
-                    response.setRouteId(r.getRouteId());
-                    response.setTrainId(r.getTrainId());
+                    wrappedStations = new ArrayList<>(); // renew stations
+                    wrappedStations.add(currentStation); // adding station
                 }
             }
+            currRouteIdTemp = routeEntities.get(i).getRouteId();
         }
-        return response;
+
+        return null;
     }
 
     @CrossOrigin(origins="*")
@@ -99,11 +98,7 @@ public class RouteController {
             }
             System.out.println(id);
             routeRepository.save(new RouteEntity(id,stationWrappers.get(i).getId(), 1, arrTime, depTime, i, 0, " ", depTime));
-
         }
-
-
-
 
     }
 
