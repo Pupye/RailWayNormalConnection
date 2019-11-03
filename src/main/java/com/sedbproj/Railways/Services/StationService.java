@@ -21,7 +21,7 @@ public class StationService {
     }
 
     public Optional <StationEntity> getStationById(int id) {
-        return stationRepository.findById(id);
+        return stationRepository.findById(new Long(id));
     }
 
 }

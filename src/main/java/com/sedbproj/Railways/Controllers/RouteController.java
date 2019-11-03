@@ -1,6 +1,8 @@
 package com.sedbproj.Railways.Controllers;
 
+import com.sedbproj.Railways.Entities.CarriageEntity;
 import com.sedbproj.Railways.Entities.RouteEntity;
+import com.sedbproj.Railways.Repositories.CarriageRepository;
 import com.sedbproj.Railways.Repositories.RouteRepository;
 import com.sedbproj.Railways.Repositories.StationRepository;
 import com.sedbproj.Railways.Wrappers.*;
@@ -25,10 +27,13 @@ public class RouteController {
     private RouteRepository routeRepository;
     @Autowired
     private StationRepository stationRepository;
-    @CrossOrigin(origins="*")
 
+    @Autowired
+    private CarriageRepository carriageRepository;
+
+    @CrossOrigin(origins="*")
     @RequestMapping(value = "/search",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RouteWrapperGet getAll(@RequestBody SearchGet search){
+    public List<RouteWrapperGet> getAll(@RequestBody SearchGet search){
 
         Timestamp dateStart = null;
         Timestamp dateEnd = null;
@@ -39,39 +44,57 @@ public class RouteController {
             dateStart = new java.sql.Timestamp(paredDate.getTime());
             dateEnd = new java.sql.Timestamp(paredDate1.getTime());
         }catch (Exception e){}
-
+        //routes where I depart from
         List<RouteEntity> routeEntitiesDep = routeRepository.findRouteEntitiesByDepDateBetweenAndStationId(dateStart, dateEnd, search.getArrivalStationId());
 
         Set<Integer> routeIds = new HashSet<>();
         List<StationWrapperGet> wrappedStations = new ArrayList<>();
-        RouteWrapperGet response = new RouteWrapperGet();
-
+        List<RouteWrapperGet> responses = new ArrayList<>();
         //order may differ considerIt
+        //getting all routeIds where i depart
+
         for(RouteEntity r : routeEntitiesDep){
             routeIds.add(r.getRouteId());
+            System.out.println(r.getRouteId());
         }
 
         for (Integer id : routeIds ){
+            //getting that route
             List<RouteEntity> routeEntitiesArr = routeRepository.findRouteEntitiesByRouteIdOrderByOrdering(id);
-            StationWrapperGet departure =null;
-            for (RouteEntity r : routeEntitiesArr){
 
+            StationWrapperGet departure = null;
+            boolean foundFlag = false;
+            wrappedStations = new ArrayList<>();
+            RouteWrapperGet response = new RouteWrapperGet();
+            for (RouteEntity r : routeEntitiesArr){
+                System.out.println(r.getRouteId() + "in loop");
                 if(r.getStationId() == search.getArrivalStationId()){
                     departure = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
-                }
-
-                if(r.getStationId() == search.getDestinationStationId()){
+                    foundFlag = true;
+                    wrappedStations.add(departure);
+                }else if(r.getStationId() == search.getDestinationStationId()){
                     StationWrapperGet arrival = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
                     //here i get route with departure and arrival searched
-                    wrappedStations.add(departure);
                     wrappedStations.add(arrival);
                     response.setStationWrapperGets(wrappedStations);
                     response.setRouteId(r.getRouteId());
                     response.setTrainId(r.getTrainId());
+                    List<CarriageEntity> carriages = carriageRepository.getCarriageEntitiesByTrainId(r.getTrainId());
+                    List<CarriageWrapperGet> carriagesResponse = new ArrayList<>();
+                    for(CarriageEntity c : carriages){
+                        carriagesResponse.add(new CarriageWrapperGet(c.getType(), c.getTotalSeats()));
+                    }
+                    response.setCarriageWrappers(carriagesResponse);
+                    responses.add(response);
+                    break;
+                }else if (foundFlag){
+                    StationWrapperGet between = new StationWrapperGet(r.getStationId(), stationRepository.findByStationId(r.getStationId()).getName(), r.getArrDate().toString(), r.getDepDate().toString());
+                    wrappedStations.add(between);
                 }
+
             }
         }
-        return response;
+        return responses;
     }
 
     @CrossOrigin(origins="*")
