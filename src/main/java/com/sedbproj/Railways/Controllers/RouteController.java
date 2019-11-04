@@ -10,15 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-//TODO refactor this class
-//route is created automatically
-//we should have functionality to update route
-//route should have name?? then just click on that we get stations
-//here should update happen
-//join table should have fk_train
 @RestController
 @RequestMapping("/routes")
 public class RouteController {
