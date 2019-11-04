@@ -22,10 +22,30 @@ public class RouteEntity {
 
     }
 
-    public RouteEntity(Integer id, int i, Timestamp arrTime, Timestamp depTime, int i1, int i2, String s, Timestamp depTime1) {
+    public RouteEntity(Integer stationId,
+                       Integer trainId,
+                       Timestamp arrTime,
+                       Timestamp depTime,
+                       Integer ordering) {
+        this.stationId = stationId;
+        this.trainId = trainId;
+        this.arrDate = arrTime;
+        this.depDate = depTime;
+        this.ordering = ordering;
     }
 
-    public RouteEntity(int id, Integer id1, int i, Timestamp arrTime, Timestamp depTime, int i1, int i2, String s, Timestamp depTime1) {
+    public RouteEntity(Integer routeId,
+                       Integer stationId,
+                       Integer trainId,
+                       Timestamp arrTime,
+                       Timestamp depTime,
+                       Integer ordering) {
+        this.routeId = routeId;
+        this.stationId = stationId;
+        this.trainId = trainId;
+        this.arrDate = arrTime;
+        this.depDate = depTime;
+        this.ordering = ordering;
     }
 
     @Id

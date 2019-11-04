@@ -26,14 +26,19 @@ public class StationController {
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Optional<StationEntity> getStationById(@PathVariable("id") int id){
+    public Optional<StationEntity> getStationById(@PathVariable("id") Integer id){
         return stationService.getStationById(id);
     }
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateOrSaveStation(@RequestBody StationEntity Station){
-        stationService.createStation(Station);
+        stationService.updateOrSaveStation(Station);
     }
 
+    @CrossOrigin(origins="*")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void deleteStationById(@PathVariable("id") Integer id){
+        stationService.deleteStationById(id);
+    }
 }

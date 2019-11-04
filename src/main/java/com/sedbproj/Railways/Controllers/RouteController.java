@@ -3,6 +3,7 @@ package com.sedbproj.Railways.Controllers;
 import com.sedbproj.Railways.Entities.RouteEntity;
 import com.sedbproj.Railways.Repositories.RouteRepository;
 import com.sedbproj.Railways.Repositories.StationRepository;
+import com.sedbproj.Railways.Services.RouteService;
 import com.sedbproj.Railways.Wrappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +27,9 @@ public class RouteController {
 
     @Autowired
     private StationRepository stationRepository;
+
+    @Autowired
+    private RouteService routeService;
 
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/search",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -75,29 +79,17 @@ public class RouteController {
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createRouteInstance(@RequestBody RouteWrapper routeStations){
-        //getting the date of the first dep time and setting it to route instance
-
+    public void createNewRouteInstance(@RequestBody RouteWrapper routeStations){
         List<StationWrapper> stationWrappers = routeStations.getStations();
-        int id = 0;
+        Integer id = null;
         for (int i = 0; i < stationWrappers.size(); i++){
-            Timestamp depTime = null;
-            Timestamp arrTime = null;
-            try{
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                Date paredDate = dateFormat.parse(stationWrappers.get(i).getDepTime());
-                Date paredDate1 = dateFormat.parse(stationWrappers.get(i).getArrTime());
-                depTime = new java.sql.Timestamp(paredDate.getTime());
-                arrTime = new java.sql.Timestamp(paredDate1.getTime());
-            }catch (Exception e){}
-
-
+            Timestamp depTime =  Timestamp.valueOf(stationWrappers.get(i).getDepTime());
+            Timestamp arrTime = Timestamp.valueOf(stationWrappers.get(i).getArrTime());
             if(i == 0) {
-                routeRepository.save(new RouteEntity(stationWrappers.get(i).getId(), 1, arrTime, depTime, i, 0, " ", depTime));
+                routeService.createNewInstanceRoute(new RouteEntity(stationWrappers.get(i).getId(), routeStations.getTrain(), arrTime, depTime, i + 1));
                 id = routeRepository.findTopByOrderByRouteIdDesc().getRouteId();
             }
-            System.out.println(id);
-            routeRepository.save(new RouteEntity(id,stationWrappers.get(i).getId(), 1, arrTime, depTime, i, 0, " ", depTime));
+            routeService.createNewInstanceRoute(new RouteEntity(id, stationWrappers.get(i).getId(), routeStations.getTrain(), arrTime, depTime, i + 1));
         }
 
     }

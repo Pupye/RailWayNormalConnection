@@ -17,22 +17,8 @@ public class RouteService {
     @Autowired
     RouteRepository routeRepository;
 
-    @Autowired
-    StationRepository stationRepository;
-    public List<RouteEntity> getRoutesBetweenStationsOnDate(Integer departureId,
-                                                            Integer destinationId,
-                                                            Timestamp depDate,
-                                                            Timestamp arrDate){
-
-        return null;
-    }
-
-    public Iterable<RouteEntity> findAll(){
-        return routeRepository.findAll();
-    }
-
-    public void createRoute (RouteEntity route){
+    public void createNewInstanceRoute (RouteEntity route){
+        //TODO you may consider whether train is available
         routeRepository.save(route);
     }
-
 }

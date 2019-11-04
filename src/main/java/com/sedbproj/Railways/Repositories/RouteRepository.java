@@ -11,9 +11,6 @@ import java.util.List;
 
 public interface RouteRepository extends CrudRepository<RouteEntity, Long> {
     RouteEntity findTopByOrderByRouteIdDesc();
-    List<RouteEntity> findRouteEntitiesByDepDateBetweenAndStationId(Timestamp start, Timestamp end, Integer id);
-    List<RouteEntity> findRouteEntitiesByRouteIdOrderByOrdering(Integer id);
-
     @Query(
             nativeQuery = true,
             value = "select R3.RouteId, R3.StationId, R3.TrainId, R3.ArrDate, R3.DepDate, R3.Ordering, R3.Cancelled, R3.CancelDesc, R3.CancelDate " +

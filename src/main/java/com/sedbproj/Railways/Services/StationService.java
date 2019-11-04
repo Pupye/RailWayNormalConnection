@@ -16,7 +16,7 @@ public class StationService {
         return stationRepository.findAll();
     }
 
-    public void createStation (StationEntity station){
+    public void updateOrSaveStation (StationEntity station){
         stationRepository.save(station);
     }
 
@@ -24,4 +24,7 @@ public class StationService {
         return stationRepository.findById(id);
     }
 
+    public void deleteStationById(Integer id) {
+        stationRepository.deleteById(id);
+    }
 }
