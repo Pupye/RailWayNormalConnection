@@ -12,6 +12,18 @@ public class PassengerEntity {
     private Integer phoneNum;
     private String email;
 
+    public PassengerEntity(){
+
+    }
+
+    public PassengerEntity(int ssn, String fname, String lname, Integer phoneNum, String email) {
+        this.ssn = ssn;
+        this.fname = fname;
+        this.lname = lname;
+        this.phoneNum = phoneNum;
+        this.email = email;
+    }
+
     @Id
     @Column(name = "SSN", nullable = false)
     public int getSsn() {

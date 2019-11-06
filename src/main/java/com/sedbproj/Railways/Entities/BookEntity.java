@@ -15,6 +15,19 @@ public class BookEntity {
     private int ssn;
     private Double price;
 
+    public BookEntity() {
+    }
+
+    public BookEntity(int routeId, int arriveStationId, int departStationId1, int carriageId, int seatNum, int ssn, Double price) {
+        this.routeId = routeId;
+        this.arriveStationId = arriveStationId;
+        this.departStationId1 = departStationId1;
+        this.carriageId = carriageId;
+        this.seatNum = seatNum;
+        this.ssn = ssn;
+        this.price = price;
+    }
+
     @Id
     @Column(name = "RouteId", nullable = false)
     public int getRouteId() {

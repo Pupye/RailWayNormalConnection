@@ -1,7 +1,9 @@
 package com.sedbproj.Railways.Controllers;
 
-import com.sedbproj.Railways.Entities.BookEntity;
-import com.sedbproj.Railways.Repositories.BookRepository;
+import com.sedbproj.Railways.Services.BookService;
+import com.sedbproj.Railways.Services.PassengerService;
+import com.sedbproj.Railways.Wrappers.bookWrappers.BookWrapper;
+import com.sedbproj.Railways.Wrappers.bookWrappers.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -10,17 +12,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/book")
 public class BookController {
     @Autowired
-    BookRepository bookRepository;
+    BookService bookService;
 
-    @CrossOrigin(origins="*")
-    @RequestMapping(method = RequestMethod.GET)
-    public Iterable<BookEntity> getAllBooks(){
-        return bookRepository.findAll();
-    }
+    @Autowired
+    PassengerService passengerService;
 
+    //TODO think about return type can it throw exception
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateOrSaveStation(@RequestBody BookEntity book){
-        bookRepository.save(book);
+    public void bookSeats(@RequestBody BookWrapper book) {
+        for (Passenger p : book.getPassengers()){
+            passengerService.createIfNotExists(p.getPassengerInfo(), p.getSSN());
+            bookService.createBook(
+                    p.getBookInfo(),
+                    new Integer(p.getSSN()),
+                    book.getRouteId(),
+                    book.getArrStationId(),
+                    book.getDepStationId()
+            );
+        }
     }
 }
