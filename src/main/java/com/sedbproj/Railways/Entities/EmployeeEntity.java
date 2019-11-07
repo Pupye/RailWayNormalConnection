@@ -6,12 +6,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "Employee", schema = "RailwaysV2", catalog = "")
 public class EmployeeEntity {
+    @Id
+    @Column(name = "UserId", nullable = false)
     private int userId;
+
     private String role;
     private Double salary;
 
-    @Id
-    @Column(name = "UserId", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private UserEntity usr;
+
     public int getUserId() {
         return userId;
     }

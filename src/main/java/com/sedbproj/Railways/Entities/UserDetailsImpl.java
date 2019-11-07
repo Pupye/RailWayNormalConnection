@@ -4,9 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl extends UserEntity implements UserDetails {
@@ -17,12 +15,13 @@ public class UserDetailsImpl extends UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        Optional<String> rol = Optional.ofNullable(super.getEmployee().getRole());
+        rol.ifPresent(s -> roles.add(new SimpleGrantedAuthority("ROLE_" + s.toUpperCase())));
+
         return roles;
-//        return getRole()
-//                .stream()
-//                .map(role-> new SimpleGrantedAuthority("ROLE_"+role.getRoleName()))
-//                .collect(Collectors.toList());
     }
 
     @Override
