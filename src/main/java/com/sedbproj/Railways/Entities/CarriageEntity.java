@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @IdClass(CarriageEntityPK.class)
-@Table(name = "Carriage", schema = "RailwaysV2", catalog = "")
+@Table(name = "Carriage", schema = "RailwaysV3", catalog = "")
 public class CarriageEntity {
     private int carriageId;
     private String type;

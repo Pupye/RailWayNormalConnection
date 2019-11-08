@@ -4,11 +4,13 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Station", schema = "RailwaysV2", catalog = "")
+@Table(name = "Station", schema = "RailwaysV3", catalog = "")
 public class StationEntity {
     private int stationId;
     private String name;
     private String city;
+    private Double lat;
+    private Double lon;
 
     @Id
     @Column(name = "StationId", nullable = false)
@@ -40,6 +42,26 @@ public class StationEntity {
         this.city = city;
     }
 
+    @Basic
+    @Column(name = "Lat", nullable = true, precision = 0)
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    @Basic
+    @Column(name = "Lon", nullable = true, precision = 0)
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,11 +69,13 @@ public class StationEntity {
         StationEntity that = (StationEntity) o;
         return stationId == that.stationId &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(city, that.city);
+                Objects.equals(city, that.city) &&
+                Objects.equals(lat, that.lat) &&
+                Objects.equals(lon, that.lon);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stationId, name, city);
+        return Objects.hash(stationId, name, city, lat, lon);
     }
 }

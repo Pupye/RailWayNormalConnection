@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Route", schema = "RailwaysV2", catalog = "")
+@Table(name = "Route", schema = "RailwaysV3", catalog = "")
 @IdClass(RouteEntityPK.class)
 public class RouteEntity {
     private int routeId;
@@ -14,37 +14,22 @@ public class RouteEntity {
     private Timestamp arrDate;
     private Timestamp depDate;
     private int ordering;
-    private Byte cancelled;
-    private String cancelDesc;
-    private Timestamp cancelDate;
 
-    public RouteEntity(){
-
-    }
-
-    public RouteEntity(Integer stationId,
-                       Integer trainId,
-                       Timestamp arrTime,
-                       Timestamp depTime,
-                       Integer ordering) {
-        this.stationId = stationId;
-        this.trainId = trainId;
-        this.arrDate = arrTime;
-        this.depDate = depTime;
-        this.ordering = ordering;
-    }
-
-    public RouteEntity(Integer routeId,
-                       Integer stationId,
-                       Integer trainId,
-                       Timestamp arrTime,
-                       Timestamp depTime,
-                       Integer ordering) {
+    public RouteEntity(int routeId, int stationId, int trainId, Timestamp arrDate, Timestamp depDate, int ordering) {
         this.routeId = routeId;
         this.stationId = stationId;
         this.trainId = trainId;
-        this.arrDate = arrTime;
-        this.depDate = depTime;
+        this.arrDate = arrDate;
+        this.depDate = depDate;
+        this.ordering = ordering;
+    }
+
+    public RouteEntity(int stationId, int trainId, Timestamp arrDate, Timestamp depDate, int ordering) {
+        this.routeId = routeId;
+        this.stationId = stationId;
+        this.trainId = trainId;
+        this.arrDate = arrDate;
+        this.depDate = depDate;
         this.ordering = ordering;
     }
 
@@ -108,36 +93,6 @@ public class RouteEntity {
         this.ordering = ordering;
     }
 
-    @Basic
-    @Column(name = "Cancelled", nullable = true)
-    public Byte getCancelled() {
-        return cancelled;
-    }
-
-    public void setCancelled(Byte cancelled) {
-        this.cancelled = cancelled;
-    }
-
-    @Basic
-    @Column(name = "CancelDesc", nullable = true, length = 100)
-    public String getCancelDesc() {
-        return cancelDesc;
-    }
-
-    public void setCancelDesc(String cancelDesc) {
-        this.cancelDesc = cancelDesc;
-    }
-
-    @Basic
-    @Column(name = "CancelDate", nullable = true)
-    public Timestamp getCancelDate() {
-        return cancelDate;
-    }
-
-    public void setCancelDate(Timestamp cancelDate) {
-        this.cancelDate = cancelDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,14 +103,11 @@ public class RouteEntity {
                 trainId == that.trainId &&
                 ordering == that.ordering &&
                 Objects.equals(arrDate, that.arrDate) &&
-                Objects.equals(depDate, that.depDate) &&
-                Objects.equals(cancelled, that.cancelled) &&
-                Objects.equals(cancelDesc, that.cancelDesc) &&
-                Objects.equals(cancelDate, that.cancelDate);
+                Objects.equals(depDate, that.depDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(routeId, stationId, trainId, arrDate, depDate, ordering, cancelled, cancelDesc, cancelDate);
+        return Objects.hash(routeId, stationId, trainId, arrDate, depDate, ordering);
     }
 }

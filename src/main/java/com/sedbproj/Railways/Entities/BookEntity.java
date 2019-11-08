@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Book", schema = "RailwaysV2", catalog = "")
+@Table(name = "Book", schema = "RailwaysV3", catalog = "")
 @IdClass(BookEntityPK.class)
 public class BookEntity {
     private int routeId;
@@ -12,13 +12,14 @@ public class BookEntity {
     private int departStationId1;
     private int carriageId;
     private int seatNum;
-    private int ssn;
+    private long ssn;
     private Double price;
+    private Byte adult;
+    public BookEntity(){
 
-    public BookEntity() {
     }
 
-    public BookEntity(int routeId, int arriveStationId, int departStationId1, int carriageId, int seatNum, int ssn, Double price) {
+    public BookEntity(int routeId, int arriveStationId, int departStationId1, int carriageId, int seatNum, long ssn, Double price) {
         this.routeId = routeId;
         this.arriveStationId = arriveStationId;
         this.departStationId1 = departStationId1;
@@ -80,11 +81,11 @@ public class BookEntity {
 
     @Id
     @Column(name = "SSN", nullable = false)
-    public int getSsn() {
+    public long getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(long ssn) {
         this.ssn = ssn;
     }
 
@@ -98,6 +99,16 @@ public class BookEntity {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "Adult", nullable = true)
+    public Byte getAdult() {
+        return adult;
+    }
+
+    public void setAdult(Byte adult) {
+        this.adult = adult;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,11 +120,12 @@ public class BookEntity {
                 carriageId == that.carriageId &&
                 seatNum == that.seatNum &&
                 ssn == that.ssn &&
-                Objects.equals(price, that.price);
+                Objects.equals(price, that.price) &&
+                Objects.equals(adult, that.adult);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(routeId, arriveStationId, departStationId1, carriageId, seatNum, ssn, price);
+        return Objects.hash(routeId, arriveStationId, departStationId1, carriageId, seatNum, ssn, price, adult);
     }
 }

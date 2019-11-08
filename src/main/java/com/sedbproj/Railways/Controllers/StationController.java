@@ -24,6 +24,7 @@ public class StationController {
     }
 
 
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER')")
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Optional<StationEntity> getStationById(@PathVariable("id") Integer id){

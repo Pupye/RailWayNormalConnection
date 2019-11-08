@@ -1,22 +1,22 @@
 package com.sedbproj.Railways.Entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Passenger", schema = "RailwaysV2", catalog = "")
+@Table(name = "Passenger", schema = "RailwaysV3", catalog = "")
 public class PassengerEntity {
-    private int ssn;
+    @Id
+    @Column(name = "SSN", nullable = false)
+    private long ssn;
     private String fname;
     private String lname;
     private Integer phoneNum;
     private String email;
+    private Date birthday;
 
-    public PassengerEntity(){
-
-    }
-
-    public PassengerEntity(int ssn, String fname, String lname, Integer phoneNum, String email) {
+    public PassengerEntity(long ssn, String fname, String lname, Integer phoneNum, String email) {
         this.ssn = ssn;
         this.fname = fname;
         this.lname = lname;
@@ -24,13 +24,15 @@ public class PassengerEntity {
         this.email = email;
     }
 
-    @Id
-    @Column(name = "SSN", nullable = false)
-    public int getSsn() {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ssn")
+    private UserEntity usr;
+
+    public long getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(long ssn) {
         this.ssn = ssn;
     }
 
@@ -74,6 +76,16 @@ public class PassengerEntity {
         this.email = email;
     }
 
+    @Basic
+    @Column(name = "Birthday", nullable = true)
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,11 +95,12 @@ public class PassengerEntity {
                 Objects.equals(fname, that.fname) &&
                 Objects.equals(lname, that.lname) &&
                 Objects.equals(phoneNum, that.phoneNum) &&
-                Objects.equals(email, that.email);
+                Objects.equals(email, that.email) &&
+                Objects.equals(birthday, that.birthday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ssn, fname, lname, phoneNum, email);
+        return Objects.hash(ssn, fname, lname, phoneNum, email, birthday);
     }
 }
