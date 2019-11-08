@@ -1,7 +1,10 @@
 package com.sedbproj.Railways.Controllers;
 
+import com.sedbproj.Railways.Entities.EmployeeEntity;
 import com.sedbproj.Railways.Entities.StationEntity;
+import com.sedbproj.Railways.Services.EmployeeService;
 import com.sedbproj.Railways.Services.StationService;
+import com.sedbproj.Railways.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,14 +19,13 @@ public class StationController {
     @Autowired
     private StationService stationService;
 
-
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<StationEntity> getAllStations(){
         return stationService.findAll();
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER')")
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Optional<StationEntity> getStationById(@PathVariable("id") Integer id){
