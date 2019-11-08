@@ -9,14 +9,13 @@ public class EmployeeEntity {
     @Id
     @Column(name = "UserId", nullable = false)
     private int userId;
+
     private String role;
     private Double salary;
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private UserEntity usr;
-
 
     public int getUserId() {
         return userId;

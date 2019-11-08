@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
+
 public class UserDetailsImpl extends UserEntity implements UserDetails {
 
     public UserDetailsImpl(UserEntity user) {
