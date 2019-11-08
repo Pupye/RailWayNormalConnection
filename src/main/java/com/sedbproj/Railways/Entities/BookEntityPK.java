@@ -11,7 +11,7 @@ public class BookEntityPK implements Serializable {
     private int departStationId1;
     private int carriageId;
     private int seatNum;
-    private int ssn;
+    private long ssn;
 
     @Column(name = "RouteId", nullable = false)
     @Id
@@ -65,11 +65,11 @@ public class BookEntityPK implements Serializable {
 
     @Column(name = "SSN", nullable = false)
     @Id
-    public int getSsn() {
+    public long getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(long ssn) {
         this.ssn = ssn;
     }
 
