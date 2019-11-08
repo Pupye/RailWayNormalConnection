@@ -39,6 +39,7 @@ public class UserEntity {
         }
         if (user.getEmployee() != null) {
             this.employee = user.getEmployee();
+        }
         if (user.getPassenger() != null) {
             this.passenger = user.getPassenger();
         }
