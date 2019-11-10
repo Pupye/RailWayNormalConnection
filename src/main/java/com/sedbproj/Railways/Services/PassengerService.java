@@ -11,7 +11,7 @@ public class PassengerService {
     @Autowired
     PassengerRepository passengerRepository;
 
-    public void createIfNotExists(PassengerInfo passengerInfo, Integer passengerSsn){
+    public void createIfNotExists(PassengerInfo passengerInfo, Long passengerSsn){
 
 
             PassengerEntity newPassenger = new PassengerEntity(

@@ -14,6 +14,10 @@ public class UserEntity {
     private EmployeeEntity employee;
     private PassengerEntity passenger;
 
+    public UserEntity() {
+
+    }
+
     public UserEntity(String fname, String lname, String email, String password) {
         this.fname = fname;
         this.lname = lname;
@@ -45,9 +49,7 @@ public class UserEntity {
         }
     }
 
-    public UserEntity() {
 
-    }
 
     @Id
     @Column(name = "UserId", nullable = false)

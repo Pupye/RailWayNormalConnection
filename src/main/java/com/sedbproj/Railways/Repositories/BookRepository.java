@@ -10,6 +10,6 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
             Integer Depart_StationId1,
             Integer CarriageId,
             Integer SeatNumId,
-            Integer SSN
+            Long SSN
     );
 }

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Passenger {
 
     @JsonProperty("SSN")
-    private Integer sSN;
+    private Long sSN;
     @JsonProperty("bookInfo")
     private BookInfo bookInfo;
     @JsonProperty("passengerInfo")
@@ -40,7 +40,7 @@ public class Passenger {
      * @param passengerInfo
      * @param sSN
      */
-    public Passenger(Integer sSN, BookInfo bookInfo, PassengerInfo passengerInfo) {
+    public Passenger(Long sSN, BookInfo bookInfo, PassengerInfo passengerInfo) {
         super();
         this.sSN = sSN;
         this.bookInfo = bookInfo;
@@ -48,12 +48,12 @@ public class Passenger {
     }
 
     @JsonProperty("SSN")
-    public Integer getSSN() {
+    public Long getSSN() {
         return sSN;
     }
 
     @JsonProperty("SSN")
-    public void setSSN(Integer sSN) {
+    public void setSSN(Long sSN) {
         this.sSN = sSN;
     }
 

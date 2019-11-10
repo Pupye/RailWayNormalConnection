@@ -8,15 +8,18 @@ import java.util.Objects;
 @Table(name = "Passenger", schema = "RailwaysV3", catalog = "")
 public class PassengerEntity {
     @Id
-    @Column(name = "SSN", nullable = false)
+    @Column(name = "ssn", nullable = false)
     private long ssn;
     private String fname;
     private String lname;
-    private Integer phoneNum;
+    private Long phoneNum;
     private String email;
     private Date birthday;
+    public PassengerEntity(){
 
-    public PassengerEntity(long ssn, String fname, String lname, Integer phoneNum, String email) {
+    }
+
+    public PassengerEntity(long ssn, String fname, String lname, Long phoneNum, String email) {
         this.ssn = ssn;
         this.fname = fname;
         this.lname = lname;
@@ -27,6 +30,7 @@ public class PassengerEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ssn")
     private UserEntity usr;
+
 
     public long getSsn() {
         return ssn;
@@ -58,11 +62,11 @@ public class PassengerEntity {
 
     @Basic
     @Column(name = "PhoneNum", nullable = true)
-    public Integer getPhoneNum() {
+    public Long getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(Integer phoneNum) {
+    public void setPhoneNum(Long phoneNum) {
         this.phoneNum = phoneNum;
     }
 

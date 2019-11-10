@@ -15,6 +15,10 @@ public class RouteEntity {
     private Timestamp depDate;
     private int ordering;
 
+    public RouteEntity(){
+
+    }
+
     public RouteEntity(int routeId, int stationId, int trainId, Timestamp arrDate, Timestamp depDate, int ordering) {
         this.routeId = routeId;
         this.stationId = stationId;
@@ -64,7 +68,7 @@ public class RouteEntity {
     }
 
     @Basic
-    @Column(name = "ArrDate", nullable = false)
+    @Column(name = "ArrDate")
     public Timestamp getArrDate() {
         return arrDate;
     }
@@ -74,7 +78,7 @@ public class RouteEntity {
     }
 
     @Basic
-    @Column(name = "DepDate", nullable = false)
+    @Column(name = "DepDate")
     public Timestamp getDepDate() {
         return depDate;
     }

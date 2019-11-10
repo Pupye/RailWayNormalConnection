@@ -11,7 +11,7 @@ public class BookService {
     @Autowired
     BookRepository bookRepository;
 
-    public void createBook(BookInfo bookInfo, Integer passengerSsn, Integer routeId, Integer arriveStationId, Integer departureStationId){
+    public void createBook(BookInfo bookInfo, Long passengerSsn, Integer routeId, Integer arriveStationId, Integer departureStationId){
         boolean checkExistence = bookRepository.existsBookEntityByRouteIdAndArriveStationIdAndDepartStationId1AndCarriageIdAndSeatNumAndSsn(
                 routeId,
                 arriveStationId,

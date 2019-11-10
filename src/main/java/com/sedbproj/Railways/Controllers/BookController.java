@@ -25,7 +25,7 @@ public class BookController {
             passengerService.createIfNotExists(p.getPassengerInfo(), p.getSSN());
             bookService.createBook(
                     p.getBookInfo(),
-                    new Integer(p.getSSN()),
+                    p.getSSN(),
                     book.getRouteId(),
                     book.getArrStationId(),
                     book.getDepStationId()

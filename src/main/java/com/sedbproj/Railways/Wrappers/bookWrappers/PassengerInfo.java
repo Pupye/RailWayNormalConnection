@@ -25,7 +25,7 @@ public class PassengerInfo {
     @JsonProperty("Lname")
     private String lname;
     @JsonProperty("PhoneNum")
-    private Integer phoneNum;
+    private Long phoneNum;
     @JsonProperty("Email")
     private String email;
     @JsonProperty("Birthday")
@@ -48,7 +48,7 @@ public class PassengerInfo {
      * @param phoneNum
      * @param email
      */
-    public PassengerInfo(String fname, String lname, Integer phoneNum, String email, String birthday) {
+    public PassengerInfo(String fname, String lname, Long phoneNum, String email, String birthday) {
         super();
         this.fname = fname;
         this.lname = lname;
@@ -78,12 +78,12 @@ public class PassengerInfo {
     }
 
     @JsonProperty("PhoneNum")
-    public Integer getPhoneNum() {
+    public Long getPhoneNum() {
         return phoneNum;
     }
 
     @JsonProperty("PhoneNum")
-    public void setPhoneNum(Integer phoneNum) {
+    public void setPhoneNum(Long phoneNum) {
         this.phoneNum = phoneNum;
     }
 
