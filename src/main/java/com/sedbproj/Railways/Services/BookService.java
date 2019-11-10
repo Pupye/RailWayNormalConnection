@@ -1,6 +1,7 @@
 package com.sedbproj.Railways.Services;
 
 import com.sedbproj.Railways.Entities.BookEntity;
+import com.sedbproj.Railways.Errors.DuplicatedBookException;
 import com.sedbproj.Railways.Repositories.BookRepository;
 import com.sedbproj.Railways.Wrappers.bookWrappers.BookInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Service;
 public class BookService {
     @Autowired
     BookRepository bookRepository;
-
-    public void createBook(BookInfo bookInfo, Long passengerSsn, Integer routeId, Integer arriveStationId, Integer departureStationId){
+    //TODO think about return types
+    public void createBook(BookInfo bookInfo, Long passengerSsn, Integer routeId, Integer arriveStationId, Integer departureStationId) throws RuntimeException{
         boolean checkExistence = bookRepository.existsBookEntityByRouteIdAndArriveStationIdAndDepartStationId1AndCarriageIdAndSeatNumAndSsn(
                 routeId,
                 arriveStationId,
@@ -32,6 +33,8 @@ public class BookService {
                     bookInfo.getAdult()
             );
             bookRepository.save(bookEntity);
+        }else  {
+            throw new DuplicatedBookException();
         }
     }
 }
