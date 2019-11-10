@@ -16,13 +16,11 @@ public class StationController {
     @Autowired
     private StationService stationService;
 
-
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<StationEntity> getAllStations(){
         return stationService.findAll();
     }
-
 
     @PreAuthorize("hasAnyRole('ROLE_MANAGER')")
     @CrossOrigin(origins="*")

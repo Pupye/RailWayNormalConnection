@@ -12,11 +12,9 @@ public class EmployeeEntity {
     private String role;
     private Double salary;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private UserEntity usr;
-
 
     public int getUserId() {
         return userId;
