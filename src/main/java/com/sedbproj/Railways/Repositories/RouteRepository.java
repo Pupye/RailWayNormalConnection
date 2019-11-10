@@ -30,4 +30,11 @@ public interface RouteRepository extends CrudRepository<RouteEntity, Long> {
                                                             @Param("destinationId") Integer destinationId,
                                                             @Param("startDate") Timestamp startDate,
                                                             @Param("endDate") Timestamp endDate);
+    @Query(
+            nativeQuery = true,
+            value = "select max(ArrDate) " +
+                    "from Route " +
+                    "where TrainId = :trainId "
+    )
+    Timestamp trainBusyDate(@Param("trainId") Integer trainId);
 }
