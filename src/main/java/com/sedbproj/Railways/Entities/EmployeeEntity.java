@@ -9,7 +9,6 @@ public class EmployeeEntity {
     @Id
     @Column(name = "UserId", nullable = false)
     private int userId;
-
     private String role;
     private Double salary;
 

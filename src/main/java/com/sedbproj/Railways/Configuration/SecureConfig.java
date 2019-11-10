@@ -39,7 +39,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(myCorsFilter, ChannelProcessingFilter.class);
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("**/").authenticated()
+                .antMatchers("**/stations/1").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin().permitAll();
     }
