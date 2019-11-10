@@ -26,7 +26,7 @@ public class BookInfo {
     @JsonProperty("Price")
     private double price;
     @JsonProperty("Adult")
-    private Integer adult;
+    private Byte adult;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -44,7 +44,7 @@ public class BookInfo {
      * @param carriageId
      * @param adult
      */
-    public BookInfo(Integer carriageId, Integer seatNum, Integer price, Integer adult) {
+    public BookInfo(Integer carriageId, Integer seatNum, Integer price, Byte adult) {
         super();
         this.carriageId = carriageId;
         this.seatNum = seatNum;
@@ -83,12 +83,12 @@ public class BookInfo {
     }
 
     @JsonProperty("Adult")
-    public Integer getAdult() {
+    public Byte getAdult() {
         return adult;
     }
 
     @JsonProperty("Adult")
-    public void setAdult(Integer adult) {
+    public void setAdult(Byte adult) {
         this.adult = adult;
     }
 

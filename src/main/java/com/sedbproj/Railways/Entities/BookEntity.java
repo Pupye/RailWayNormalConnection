@@ -19,7 +19,7 @@ public class BookEntity {
 
     }
 
-    public BookEntity(int routeId, int arriveStationId, int departStationId1, int carriageId, int seatNum, long ssn, Double price) {
+    public BookEntity(int routeId, int arriveStationId, int departStationId1, int carriageId, int seatNum, long ssn, Double price, Byte adult) {
         this.routeId = routeId;
         this.arriveStationId = arriveStationId;
         this.departStationId1 = departStationId1;
@@ -27,6 +27,7 @@ public class BookEntity {
         this.seatNum = seatNum;
         this.ssn = ssn;
         this.price = price;
+        this.adult = adult;
     }
 
     @Id

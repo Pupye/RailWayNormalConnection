@@ -28,7 +28,8 @@ public class BookService {
                     departureStationId,
                     bookInfo.getCarriageId(), bookInfo.getSeatNum(),
                     passengerSsn,
-                    bookInfo.getPrice()
+                    bookInfo.getPrice(),
+                    bookInfo.getAdult()
             );
             bookRepository.save(bookEntity);
         }
