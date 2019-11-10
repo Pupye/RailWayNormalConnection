@@ -58,7 +58,7 @@ public class UserEntity {
     }
 
     public void setUserId(int userId) {
-        this.userId = helloboyIAmConflict;
+        this.userId = userId;
     }
 
     @Basic
