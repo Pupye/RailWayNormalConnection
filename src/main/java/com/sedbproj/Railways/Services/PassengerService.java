@@ -13,17 +13,16 @@ public class PassengerService {
 
     public void createIfNotExists(PassengerInfo passengerInfo, Long passengerSsn){
 
-
-            PassengerEntity newPassenger = new PassengerEntity(
+            if(!passengerRepository.existsById(passengerSsn)){
+                PassengerEntity newPassenger = new PassengerEntity(
                     passengerSsn,
                     passengerInfo.getFname(),
                     passengerInfo.getLname(),
                     passengerInfo.getPhoneNum(),
                     passengerInfo.getEmail()
-            );
-
-            passengerRepository.save(newPassenger);
-
+                );
+                passengerRepository.save(newPassenger);
+            }
     }
 
 }
