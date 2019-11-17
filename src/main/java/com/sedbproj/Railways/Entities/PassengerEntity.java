@@ -1,5 +1,7 @@
 package com.sedbproj.Railways.Entities;
 
+import org.apache.catalina.User;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -8,7 +10,7 @@ import java.util.Objects;
 @Table(name = "Passenger", schema = "RailwaysV3", catalog = "")
 public class PassengerEntity {
     @Id
-    @Column(name = "ssn", nullable = false)
+    @Column(name = "SSN", nullable = false)
     private long ssn;
     private String fname;
     private String lname;
@@ -27,8 +29,8 @@ public class PassengerEntity {
         this.email = email;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ssn")
+    @OneToOne(mappedBy = "passenger", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private UserEntity usr;
 
 

@@ -17,8 +17,14 @@ public class UserDetailsImpl extends UserEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
         roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        String role = null;
+        try {
+            role = super.getEmployee().getRole();
+        } catch(Exception e) {
+            System.out.println("Can't find the role of the just logged in user");
+        }
 
-        Optional<String> rol = Optional.ofNullable(super.getEmployee().getRole());
+        Optional<String> rol = Optional.ofNullable(role);
         rol.ifPresent(s -> roles.add(new SimpleGrantedAuthority("ROLE_" + s.toUpperCase())));
 
         return roles;
