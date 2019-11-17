@@ -21,7 +21,8 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
                     "AND Depart_StationId1=:departStationID " +
                     "AND Arrive_StationId=:arriveStationID " +
                     "AND CarriageId=:carriageID " +
-                    "AND SSN=:ssn "
+                    "AND SSN=:ssn " +
+                    "AND SeatNum=:seatNum"
     )
     void deleteByCancelJson(
             @Param("routeID") Integer routeID,
