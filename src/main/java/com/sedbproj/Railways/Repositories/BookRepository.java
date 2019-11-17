@@ -1,7 +1,9 @@
 package com.sedbproj.Railways.Repositories;
 
 import com.sedbproj.Railways.Entities.BookEntity;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface BookRepository extends CrudRepository<BookEntity, Long> {
     boolean existsBookEntityByRouteIdAndArriveStationIdAndDepartStationId1AndCarriageIdAndSeatNumAndSsn(
@@ -11,5 +13,22 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
             Integer CarriageId,
             Integer SeatNumId,
             Long SSN
+    );
+    @Query(
+            nativeQuery = true,
+            value = "DELETE FROM Book " +
+                    "WHERE RouteId=:routeID " +
+                    "AND Depart_StationId1=:departStationID " +
+                    "AND Arrive_StationId=:arriveStationID " +
+                    "AND CarriageId=:carriageID " +
+                    "AND SSN=:ssn "
+    )
+    void deleteByCancelJson(
+            @Param("routeID") Integer routeID,
+            @Param("departStationID") Integer departStationID,
+            @Param("arriveStationID") Integer arriveStationID,
+            @Param("carriageID") Integer carriageID,
+            @Param("seatNum") Integer seatNum,
+            @Param("ssn") Integer ssn
     );
 }

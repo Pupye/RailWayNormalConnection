@@ -2,6 +2,7 @@ package com.sedbproj.Railways.Controllers;
 
 import com.sedbproj.Railways.Services.BookService;
 import com.sedbproj.Railways.Services.PassengerService;
+import com.sedbproj.Railways.Wrappers.bookWrappers.BookCancel;
 import com.sedbproj.Railways.Wrappers.bookWrappers.BookWrapper;
 import com.sedbproj.Railways.Wrappers.bookWrappers.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class BookController {
                     book.getDepStationId()
             );
         }
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void deleteStationById(@RequestBody BookCancel bookCancel)
+    {
+        bookService.cancelBook(bookCancel);
+
     }
 }

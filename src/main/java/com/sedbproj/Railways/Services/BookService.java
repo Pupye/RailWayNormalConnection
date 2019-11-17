@@ -3,6 +3,7 @@ package com.sedbproj.Railways.Services;
 import com.sedbproj.Railways.Entities.BookEntity;
 import com.sedbproj.Railways.Errors.DuplicatedBookException;
 import com.sedbproj.Railways.Repositories.BookRepository;
+import com.sedbproj.Railways.Wrappers.bookWrappers.BookCancel;
 import com.sedbproj.Railways.Wrappers.bookWrappers.BookInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,16 @@ public class BookService {
         }else  {
             throw new DuplicatedBookException();
         }
+    }
+
+    public void cancelBook(BookCancel bookCancel) {
+        bookRepository.deleteByCancelJson(
+                bookCancel.getRouteID(),
+                bookCancel.getDepartStationID(),
+                bookCancel.getArriveStationID(),
+                bookCancel.getCarriageID(),
+                bookCancel.getSeatNum(),
+                bookCancel.getSSN()
+        );
     }
 }
