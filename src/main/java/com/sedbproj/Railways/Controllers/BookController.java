@@ -18,7 +18,6 @@ public class BookController {
     @Autowired
     PassengerService passengerService;
 
-    //TODO think about return type can it throw exception
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void bookSeats(@RequestBody BookWrapper book) {
@@ -35,8 +34,8 @@ public class BookController {
     }
 
     @CrossOrigin(origins="*")
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public void deleteStationById(@RequestBody BookCancel bookCancel)
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void cancelBook(@RequestBody BookCancel bookCancel)
     {
         bookService.cancelBook(bookCancel);
 

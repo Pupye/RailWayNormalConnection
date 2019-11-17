@@ -28,7 +28,7 @@ public class CarriageController {
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createCarriage(Iterable<CarriageEntity> carriageEntity){
+    public void createCarriage(@RequestBody Iterable<CarriageEntity> carriageEntity){
         carriageRepository.saveAll(carriageEntity);
     }
 }
