@@ -20,7 +20,7 @@ public class StationService {
         stationRepository.save(station);
     }
 
-    public Optional <StationEntity> getStationById(int id) {
+    public Optional <StationEntity> getStationById(Integer id) {
         return stationRepository.findById(id);
     }
 

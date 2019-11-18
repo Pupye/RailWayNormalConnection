@@ -12,7 +12,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Optional<EmployeeEntity> getEmployeeById(int id) {
+    public Optional<EmployeeEntity> getEmployeeById(Long id) {
         return employeeRepository.findById(id);
     }
 }

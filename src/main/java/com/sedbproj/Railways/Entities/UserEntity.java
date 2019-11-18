@@ -11,6 +11,11 @@ public class UserEntity {
     private String lname;
     private String email;
     private String password;
+
+    @Basic
+    @Column(name = "SSN")
+    private Long ssn;
+
     private EmployeeEntity employee;
     private PassengerEntity passenger;
 
@@ -41,6 +46,7 @@ public class UserEntity {
         if (!user.getPassword().equals("")) {
             this.password = user.getPassword();
         }
+        this.ssn = user.getSsn();
         if (user.getEmployee() != null) {
             this.employee = user.getEmployee();
         }
@@ -101,7 +107,15 @@ public class UserEntity {
         this.password = password;
     }
 
-    @OneToOne(targetEntity = EmployeeEntity.class, mappedBy = "usr", fetch=FetchType.EAGER)
+    public Long getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(Long ssn) {
+        this.ssn = ssn;
+    }
+
+    @OneToOne(targetEntity = EmployeeEntity.class, mappedBy = "usr", fetch=FetchType.LAZY)
     public EmployeeEntity getEmployee() {
         return employee;
     }
@@ -110,7 +124,8 @@ public class UserEntity {
         this.employee = employee;
     }
 
-    @OneToOne(targetEntity = PassengerEntity.class, mappedBy = "usr", fetch=FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SSN")
     public PassengerEntity getPassenger() {
         return passenger;
     }
