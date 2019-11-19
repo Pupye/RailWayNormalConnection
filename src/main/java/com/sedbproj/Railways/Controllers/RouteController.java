@@ -30,16 +30,23 @@ public class RouteController {
         Timestamp dateStart = Timestamp.valueOf(search.getDate() + " 00:00:00");
         Timestamp dateEnd = Timestamp.valueOf(search.getDate() + " 23:59:59");
         List <RouteEntity> routeEntities = routeRepository.findRouteEntitiesByStationsAndDepDate(search.getArrivalStationId(),search.getDestinationStationId(), dateStart, dateEnd);
-
+        System.out.println(search.getArrivalStationId() + "this is my print");
         Integer currRouteIdTemp = null;
         List<RouteWrapperGet> wrappedRoutes = new ArrayList<>();
         RouteWrapperGet wrappedRoute = new RouteWrapperGet();
         List <StationWrapperGet> wrappedStations = new ArrayList<>();
+        System.out.println(routeEntities.get(0).getTrainId());
         for (int i = 0; i < routeEntities.size(); i++){
-            StationWrapperGet currentStation = new StationWrapperGet(routeEntities.get(i).getStationId(),
-                                                                  stationRepository.findByStationId(routeEntities.get(i).getStationId()).getName(),
-                                                                  routeEntities.get(i).getArrDate().toString(),
-                                                                  routeEntities.get(i).toString());
+            String arrivalDate = routeEntities.get(i).getArrDate()==null ? null : routeEntities.get(i).getArrDate().toString();
+            String departureDate = routeEntities.get(i).getDepDate()==null ? null : routeEntities.get(i).getDepDate().toString();
+            StationWrapperGet currentStation = new StationWrapperGet(
+                    routeEntities.get(i).getStationId(),
+                    stationRepository.findByStationId(routeEntities.get(i).getStationId()).getName(),
+                    arrivalDate,
+                    departureDate
+            );
+
+
             if (currRouteIdTemp != null && currRouteIdTemp == routeEntities.get(i).getRouteId()){
 
                 wrappedStations.add(currentStation);
@@ -67,7 +74,7 @@ public class RouteController {
             currRouteIdTemp = routeEntities.get(i).getRouteId();
         }
 
-        return null;
+        return wrappedRoutes;
     }
 
     @CrossOrigin(origins="*")
