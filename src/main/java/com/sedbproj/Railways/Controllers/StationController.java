@@ -35,6 +35,8 @@ public class StationController {
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateOrSaveStation(@RequestBody StationEntity Station){
+        System.out.println(Station.getCity() + "myCity");
+        System.out.println(Station.getName() + "station Name");
         stationService.updateOrSaveStation(Station);
     }
 
