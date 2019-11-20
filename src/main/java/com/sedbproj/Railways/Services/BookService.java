@@ -77,4 +77,8 @@ public class BookService {
         }
         return result;
     }
+
+    public List<BookEntity> getOrderHistoryByUserId(Integer userId){
+        return bookRepository.findBookEntitiesByUserId(userId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.sedbproj.Railways.Controllers;
 
+import com.sedbproj.Railways.Entities.BookEntity;
 import com.sedbproj.Railways.Services.BookService;
 import com.sedbproj.Railways.Services.PassengerService;
 import com.sedbproj.Railways.Wrappers.bookWrappers.BookCancel;
@@ -8,6 +9,8 @@ import com.sedbproj.Railways.Wrappers.bookWrappers.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -39,6 +42,11 @@ public class BookController {
     public void cancelBook(@RequestBody BookCancel bookCancel)
     {
         bookService.cancelBook(bookCancel);
+    }
 
+    @CrossOrigin(origins="*")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public List<BookEntity> getUsersOrderHistory(@PathVariable("id") Integer id){
+        return bookService.getOrderHistoryByUserId(id);
     }
 }

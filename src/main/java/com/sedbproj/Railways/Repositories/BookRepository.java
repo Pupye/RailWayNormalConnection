@@ -36,4 +36,6 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
     );
 
     List <BookEntity> findBookEntitiesByRouteIdAndCarriageId(Integer routeId, Integer carriageId);
+
+    List <BookEntity> findBookEntitiesByUserId(Integer userId);
 }
