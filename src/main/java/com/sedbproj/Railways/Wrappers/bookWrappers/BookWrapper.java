@@ -28,6 +28,9 @@ public class BookWrapper {
     private Integer depStationId;
     @JsonProperty("passengers")
     private List<Passenger> passengers = null;
+    @JsonProperty("UserId")
+    private  Integer userId;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -45,12 +48,13 @@ public class BookWrapper {
      * @param routeId
      * @param depStationId
      */
-    public BookWrapper(Integer routeId, Integer arrStationId, Integer depStationId, List<Passenger> passengers) {
+    public BookWrapper(Integer routeId, Integer arrStationId, Integer depStationId, List<Passenger> passengers, Integer userId) {
         super();
         this.routeId = routeId;
         this.arrStationId = arrStationId;
         this.depStationId = depStationId;
         this.passengers = passengers;
+        this.userId = userId;
     }
 
     @JsonProperty("RouteId")
@@ -91,6 +95,15 @@ public class BookWrapper {
     @JsonProperty("passengers")
     public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
+    }
+
+    @JsonProperty("UserId")
+    public Integer getUserId() {
+        return userId;
+    }
+    @JsonProperty("UserId")
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @JsonAnyGetter

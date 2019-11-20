@@ -19,7 +19,7 @@ public class BookService {
     @Autowired
     RouteService routeService;
     //TODO think about return types
-    public void createBook(BookInfo bookInfo, Long passengerSsn, Integer routeId, Integer arriveStationId, Integer departureStationId) throws RuntimeException{
+    public void createBook(BookInfo bookInfo, Long passengerSsn, Integer routeId, Integer arriveStationId, Integer departureStationId, Integer userId) throws RuntimeException{
         boolean checkExistence = bookRepository.existsBookEntityByRouteIdAndArriveStationIdAndDepartStationId1AndCarriageIdAndSeatNumAndSsn(
                 routeId,
                 arriveStationId,
@@ -37,7 +37,8 @@ public class BookService {
                     bookInfo.getCarriageId(), bookInfo.getSeatNum(),
                     passengerSsn,
                     bookInfo.getPrice(),
-                    bookInfo.getAdult()
+                    bookInfo.getAdult(),
+                    userId
             );
             bookRepository.save(bookEntity);
         }else  {
@@ -75,5 +76,9 @@ public class BookService {
 
         }
         return result;
+    }
+
+    public List<BookEntity> getOrderHistoryByUserId(Integer userId){
+        return bookRepository.findBookEntitiesByUserId(userId);
     }
 }
