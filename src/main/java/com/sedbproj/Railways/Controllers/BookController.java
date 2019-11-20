@@ -28,7 +28,8 @@ public class BookController {
                     p.getSSN(),
                     book.getRouteId(),
                     book.getArrStationId(),
-                    book.getDepStationId()
+                    book.getDepStationId(),
+                    book.getUserId()
             );
         }
     }
