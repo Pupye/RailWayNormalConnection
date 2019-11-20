@@ -37,7 +37,7 @@ public class UserDetailsImpl extends UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return super.getFname();
+        return super.getEmail();
     }
 
     @Override
