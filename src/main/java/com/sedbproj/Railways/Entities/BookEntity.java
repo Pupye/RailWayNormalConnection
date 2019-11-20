@@ -125,7 +125,7 @@ public class BookEntity {
 
     @Basic
     @Column(name = "UserId")
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 

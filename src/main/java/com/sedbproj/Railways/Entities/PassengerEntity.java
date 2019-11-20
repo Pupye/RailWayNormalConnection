@@ -14,14 +14,14 @@ public class PassengerEntity {
     private long ssn;
     private String fname;
     private String lname;
-    private Long phoneNum;
+    private String phoneNum;
     private String email;
     private Date birthday;
     public PassengerEntity(){
 
     }
 
-    public PassengerEntity(long ssn, String fname, String lname, Long phoneNum, String email) {
+    public PassengerEntity(long ssn, String fname, String lname, String phoneNum, String email) {
         this.ssn = ssn;
         this.fname = fname;
         this.lname = lname;
@@ -64,11 +64,11 @@ public class PassengerEntity {
 
     @Basic
     @Column(name = "PhoneNum", nullable = true)
-    public Long getPhoneNum() {
+    public String getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(Long phoneNum) {
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
 

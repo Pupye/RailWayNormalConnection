@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BookRepository extends CrudRepository<BookEntity, Long> {
-    List <BookEntity> findBookEntitiesByUserId(Integer userId);
+    List <BookEntity> findBookEntitiesByUserIdOrderByRouteId(Integer userId);
 
 
     boolean existsBookEntityByRouteIdAndArriveStationIdAndDepartStationId1AndCarriageIdAndSeatNumAndSsn(
