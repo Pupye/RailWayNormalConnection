@@ -15,7 +15,7 @@ public class BookEntity {
     private long ssn;
     private Double price;
     private Byte adult;
-    private int userId;
+    private Integer userId;
     public BookEntity(){
 
     }
@@ -129,7 +129,7 @@ public class BookEntity {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
