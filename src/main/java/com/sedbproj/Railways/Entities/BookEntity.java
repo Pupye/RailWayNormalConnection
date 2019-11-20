@@ -15,6 +15,7 @@ public class BookEntity {
     private long ssn;
     private Double price;
     private Byte adult;
+    private int userId;
     public BookEntity(){
 
     }
@@ -28,6 +29,18 @@ public class BookEntity {
         this.ssn = ssn;
         this.price = price;
         this.adult = adult;
+    }
+
+    public BookEntity(int routeId, int arriveStationId, int departStationId1, int carriageId, int seatNum, long ssn, Double price, Byte adult, Integer userId) {
+        this.routeId = routeId;
+        this.arriveStationId = arriveStationId;
+        this.departStationId1 = departStationId1;
+        this.carriageId = carriageId;
+        this.seatNum = seatNum;
+        this.ssn = ssn;
+        this.price = price;
+        this.adult = adult;
+        this.userId = userId;
     }
 
     @Id
@@ -108,6 +121,16 @@ public class BookEntity {
 
     public void setAdult(Byte adult) {
         this.adult = adult;
+    }
+
+    @Basic
+    @Column(name = "UserId")
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
