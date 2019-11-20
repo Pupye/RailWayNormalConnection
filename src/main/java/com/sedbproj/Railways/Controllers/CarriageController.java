@@ -31,4 +31,10 @@ public class CarriageController {
     public void createCarriage(@RequestBody Iterable<CarriageEntity> carriageEntity){
         carriageRepository.saveAll(carriageEntity);
     }
+
+//    @CrossOrigin(origins="*")
+//    @RequestMapping(method = RequestMethod.POST, value = "/booked")
+//    public List<Integer> getBookedSeatsByCarriageId(){
+
+//    }
 }

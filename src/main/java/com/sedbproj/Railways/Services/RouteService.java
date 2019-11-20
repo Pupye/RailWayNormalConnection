@@ -22,14 +22,19 @@ public class RouteService {
 
         Timestamp departureDate = route.getDepDate();
         Timestamp arrivalDate = route.getArrDate();
-        Boolean isDepNull = departureDate.equals(null);
-        Boolean isArrNull = arrivalDate.equals(null);
+        Boolean isDepNull = departureDate == null;
+        Boolean isArrNull = arrivalDate == null;
 
-        if ((!isArrNull && trainIsBusyBy.after(arrivalDate))
+        if (trainIsBusyBy == null){
+            routeRepository.save(route);
+        }else if ((!isArrNull && trainIsBusyBy.after(arrivalDate))
                 || (!isDepNull && trainIsBusyBy.after(departureDate))){
             throw new TrainIsBusyException(route.getTrainId());
         }else {
             routeRepository.save(route);
         }
+    }
+    public Integer getOrderByRouteAndStationId(Integer routeId, Integer stationId){
+        return routeRepository.findOrderingByRouteIdAndStationId(routeId, stationId);
     }
 }

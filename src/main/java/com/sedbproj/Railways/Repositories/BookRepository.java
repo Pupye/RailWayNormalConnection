@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface BookRepository extends CrudRepository<BookEntity, Long> {
     boolean existsBookEntityByRouteIdAndArriveStationIdAndDepartStationId1AndCarriageIdAndSeatNumAndSsn(
             Integer RouteId,
@@ -32,4 +34,6 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
             @Param("seatNum") Integer seatNum,
             @Param("ssn") Integer ssn
     );
+
+    List <BookEntity> findBookEntitiesByRouteIdAndCarriageId(Integer routeId, Integer carriageId);
 }
