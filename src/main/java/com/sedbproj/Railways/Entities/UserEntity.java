@@ -12,9 +12,9 @@ public class UserEntity {
     private String email;
     private String password;
 
-    @Basic
-    @Column(name = "SSN")
-    private Long ssn;
+//    @Basic
+//    @Column(name = "SSN")
+//    private Long ssn;
 
     private EmployeeEntity employee;
     private PassengerEntity passenger;
@@ -46,7 +46,7 @@ public class UserEntity {
         if (!user.getPassword().equals("")) {
             this.password = user.getPassword();
         }
-        this.ssn = user.getSsn();
+//        this.ssn = user.getSsn();
         if (user.getEmployee() != null) {
             this.employee = user.getEmployee();
         }
@@ -107,13 +107,13 @@ public class UserEntity {
         this.password = password;
     }
 
-    public Long getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(Long ssn) {
-        this.ssn = ssn;
-    }
+//    public Long getSsn() {
+//        return ssn;
+//    }
+//
+//    public void setSsn(Long ssn) {
+//        this.ssn = ssn;
+//    }
 
     @OneToOne(targetEntity = EmployeeEntity.class, mappedBy = "usr", fetch=FetchType.LAZY)
     public EmployeeEntity getEmployee() {
