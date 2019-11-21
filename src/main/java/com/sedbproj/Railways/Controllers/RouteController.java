@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -129,4 +130,9 @@ public class RouteController {
 
     }
 
+    @CrossOrigin(origins="*")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void cancelRoute(@PathVariable("id") Integer routeId){
+        routeRepository.cancelRoute(routeId);
+    }
 }
