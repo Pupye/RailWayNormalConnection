@@ -47,4 +47,28 @@ public interface RouteRepository extends CrudRepository<RouteEntity, Long> {
     )
     Integer findOrderingByRouteIdAndStationId(@Param("routeId") Integer routeId,
                                               @Param("stationId") Integer stationId);
+
+    @Query(
+            nativeQuery = true,
+            value = "select distinct TrainId " +
+                    "from Route " +
+                    "where RouteId = :routeId"
+    )
+    Integer getTrainIdByRouteId(@Param("routeId") Integer routeId);
+
+    @Query(
+            nativeQuery = true,
+            value = "select DepDate from Route " +
+                    "where RouteId = :routeId " +
+                    "and StationId = :stationId "
+    )
+    Timestamp getDepartureTimeByStationAndRouteId(@Param("routeId") Integer routeId, @Param("stationId") Integer stationId);
+
+    @Query(
+            nativeQuery = true,
+            value = "select ArrDate from Route " +
+                    "where RouteId = :routeId " +
+                    "and StationId = :stationId "
+    )
+    Timestamp getArrivalTimeByStationAndRouteId(@Param("routeId") Integer routeId, @Param("stationId") Integer arriveStationId);
 }
