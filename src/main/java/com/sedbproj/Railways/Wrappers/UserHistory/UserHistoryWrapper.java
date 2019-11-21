@@ -77,6 +77,18 @@ public class UserHistoryWrapper {
         this.passangers = passangers;
     }
 
+    public UserHistoryWrapper(Integer trainId, Integer routeId, String depTime, String arrTime, String arrivalStation, String arrivalStationCity, String destinationStation, String destinationStationCity) {
+        super();
+        this.trainId = trainId;
+        this.routeId = routeId;
+        this.depTime = depTime;
+        this.arrTime = arrTime;
+        this.arrivalStation = arrivalStation;
+        this.arrivalStationCity = arrivalStationCity;
+        this.destinationStation = destinationStation;
+        this.destinationStationCity = destinationStationCity;
+    }
+
     @JsonProperty("trainId")
     public Integer getTrainId() {
         return trainId;

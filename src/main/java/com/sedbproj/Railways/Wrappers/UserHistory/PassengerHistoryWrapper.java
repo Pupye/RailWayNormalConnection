@@ -27,7 +27,7 @@ public class PassengerHistoryWrapper {
     @JsonProperty("Lname")
     private String lname;
     @JsonProperty("ssn")
-    private Integer ssn;
+    private Long ssn;
     @JsonProperty("seatNum")
     private Integer seatNum;
     @JsonProperty("carriageId")
@@ -35,7 +35,7 @@ public class PassengerHistoryWrapper {
     @JsonProperty("carriageType")
     private String carriageType;
     @JsonProperty("price")
-    private Integer price;
+    private Double price;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -56,7 +56,7 @@ public class PassengerHistoryWrapper {
      * @param carriageId
      * @param ssn
      */
-    public PassengerHistoryWrapper(String fname, String lname, Integer ssn, Integer seatNum, Integer carriageId, String carriageType, Integer price) {
+    public PassengerHistoryWrapper(String fname, String lname, Long ssn, Integer seatNum, Integer carriageId, String carriageType, Double price) {
         super();
         this.fname = fname;
         this.lname = lname;
@@ -88,12 +88,12 @@ public class PassengerHistoryWrapper {
     }
 
     @JsonProperty("ssn")
-    public Integer getSsn() {
+    public Long getSsn() {
         return ssn;
     }
 
     @JsonProperty("ssn")
-    public void setSsn(Integer ssn) {
+    public void setSsn(Long ssn) {
         this.ssn = ssn;
     }
 
@@ -128,12 +128,12 @@ public class PassengerHistoryWrapper {
     }
 
     @JsonProperty("price")
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @JsonProperty("price")
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

@@ -37,4 +37,18 @@ public class RouteService {
     public Integer getOrderByRouteAndStationId(Integer routeId, Integer stationId){
         return routeRepository.findOrderingByRouteIdAndStationId(routeId, stationId);
     }
+
+    public int getTrainIdByRouteId(int routeId) {
+        return routeRepository.getTrainIdByRouteId(routeId);
+    }
+
+    public String getDepartureTimeByRouteIdAndStationId(int routeId, int departStationId1) {
+        Timestamp depTime = routeRepository.getDepartureTimeByStationAndRouteId(routeId, departStationId1);
+        return depTime == null? null: depTime.toString();
+    }
+
+    public String getArrivalTimeByRouteIdAndStationId(int routeId, int arriveStationId) {
+        Timestamp arrivalDate = routeRepository.getArrivalTimeByStationAndRouteId(routeId, arriveStationId);
+        return arrivalDate == null ? null : arrivalDate.toString();
+    }
 }

@@ -49,8 +49,7 @@ public class BookController {
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public List<UserHistoryWrapper> getUsersOrderHistory(@PathVariable("id") Integer id){
-        bookService.getOrderHistoryByUserId(id);
 
-        return null;
+        return bookService.getUserHistoryWrapperById(id);
     }
 }
