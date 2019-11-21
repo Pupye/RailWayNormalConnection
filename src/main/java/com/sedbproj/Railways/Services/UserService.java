@@ -15,4 +15,8 @@ public class UserService {
     public Optional<UserEntity> getUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    public void saveStation (UserEntity station){
+        userRepository.save(station);
+    }
 }

@@ -3,6 +3,7 @@ package com.sedbproj.Railways.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MyPasswordEncoder implements PasswordEncoder {
+
     @Override
     public String encode(CharSequence charSequence) {
         return charSequence.toString();
