@@ -1,9 +1,11 @@
 package com.sedbproj.Railways.Repositories;
 
 import com.sedbproj.Railways.Entities.BookEntity;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +31,8 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
                     "AND SSN=:ssn " +
                     "AND SeatNum=:seatNum"
     )
+    @Transactional
+    @Modifying
     void deleteByCancelJson(
             @Param("routeID") Integer routeID,
             @Param("departStationID") Integer departStationID,

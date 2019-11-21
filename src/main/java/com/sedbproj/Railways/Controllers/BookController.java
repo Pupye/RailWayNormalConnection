@@ -25,7 +25,6 @@ public class BookController {
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void bookSeats(@RequestBody BookWrapper book) {
-        System.out.println("here??");
         for (Passenger p : book.getPassengers()){
             passengerService.createIfNotExists(p.getPassengerInfo(), p.getSSN());
             bookService.createBook(
@@ -41,9 +40,9 @@ public class BookController {
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.DELETE)
-    public void cancelBook(@RequestBody BookCancel bookCancel)
-    {
+    public void cancelBook(@RequestBody BookCancel bookCancel) {
         bookService.cancelBook(bookCancel);
+
     }
 
     @CrossOrigin(origins="*")

@@ -1,13 +1,13 @@
 package com.sedbproj.Railways.Configuration;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.sedbproj.Railways.Entities.UserEntity;
+import com.sedbproj.Railways.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +22,9 @@ public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -60,7 +63,10 @@ public class JwtTokenUtil implements Serializable {
                 .filter(role -> !role.equals("ROLE_USER"))
                 .collect(Collectors.toList());
 
+        Optional<UserEntity> usr = userRepository.findByEmail(userDetails.getUsername());
+
         claims.put("roles", roles);
+        claims.put("userId", usr.get().getUserId());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
