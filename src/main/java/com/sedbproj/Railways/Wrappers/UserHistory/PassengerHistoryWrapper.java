@@ -21,7 +21,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "price"
 })
 public class PassengerHistoryWrapper {
-
+    @JsonProperty("departTime")
+    private String departureTime;
+    @JsonProperty("arrivalTime")
+    private String arrivalTime;
+    @JsonProperty("departStation")
+    private Integer departStation;
+    @JsonProperty("arriveStation")
+    private Integer arriveStation;
     @JsonProperty("Fname")
     private String fname;
     @JsonProperty("Lname")
@@ -56,15 +63,65 @@ public class PassengerHistoryWrapper {
      * @param carriageId
      * @param ssn
      */
-    public PassengerHistoryWrapper(String fname, String lname, Long ssn, Integer seatNum, Integer carriageId, String carriageType, Double price) {
+    public PassengerHistoryWrapper(
+            String arrivalTime,
+            String departureTime,
+            String fname,
+            String lname,
+            Long ssn,
+            Integer seatNum,
+            Integer carriageId,
+            Integer arriveStation,
+            Integer departStation,
+            String carriageType,
+            Double price
+        ) {
         super();
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
         this.fname = fname;
         this.lname = lname;
         this.ssn = ssn;
         this.seatNum = seatNum;
+        this.arriveStation = arriveStation;
+        this.departStation = departStation;
         this.carriageId = carriageId;
         this.carriageType = carriageType;
         this.price = price;
+    }
+
+    @JsonProperty("departTime")
+    public String getDepartureTime() {
+        return departureTime;
+    }
+    @JsonProperty("departTime")
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
+    @JsonProperty("arrivalTime")
+    public String getArrivalTime() {
+        return arrivalTime;
+    }
+    @JsonProperty("arrivalTime")
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    @JsonProperty("departStation")
+    public Integer getDepartStation() {
+        return departStation;
+    }
+    @JsonProperty("departStation")
+    public void setDepartStation(Integer departStation) {
+        this.departStation = departStation;
+    }
+    @JsonProperty("arriveStation")
+    public Integer getArriveStation() {
+        return arriveStation;
+    }
+    @JsonProperty(value = "arriveStation")
+    public void setArriveStation(Integer arriveStation) {
+        this.arriveStation = arriveStation;
     }
 
     @JsonProperty("Fname")

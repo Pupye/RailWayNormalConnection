@@ -117,11 +117,15 @@ public class BookService {
                 PassengerEntity passenger = passengerRepository.findPassengerEntityBySsn(book.getSsn());
                 passengerHistoryWrappers.add(
                         new PassengerHistoryWrapper(
+                                routeService.getArrivalTimeByRouteIdAndStationId(book.getRouteId(), book.getArriveStationId()),
+                                routeService.getDepartureTimeByRouteIdAndStationId(book.getRouteId(), book.getDepartStationId1()),
                                 passenger.getFname(),
                                 passenger.getLname(),
                                 passenger.getSsn(),
                                 book.getSeatNum(),
                                 book.getCarriageId(),
+                                book.getArriveStationId(),
+                                book.getDepartStationId1(),
                                 carriageRepository.getTypeByCarriageIdAndTrainId(book.getCarriageId(), trainId),
                                 book.getPrice()
                         )
@@ -148,11 +152,15 @@ public class BookService {
         PassengerEntity passenger = passengerRepository.findPassengerEntityBySsn(book.getSsn());
         passengerHistoryWrappers.add(
                 new PassengerHistoryWrapper(
+                        arrivalTime,
+                        departureTime,
                         passenger.getFname(),
                         passenger.getLname(),
                         passenger.getSsn(),
                         book.getSeatNum(),
                         book.getCarriageId(),
+                        book.getArriveStationId(),
+                        book.getDepartStationId1(),
                         carriageRepository.getTypeByCarriageIdAndTrainId(book.getCarriageId(), trainId),
                         book.getPrice()
                 )
