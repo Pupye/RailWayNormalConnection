@@ -135,4 +135,10 @@ public class RouteController {
     public void cancelRoute(@PathVariable("id") Integer routeId){
         routeRepository.cancelRoute(routeId);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/custom")
+    public StateCheckWrapper getStateCheckWrapper(@RequestBody StateCheckGet stateCheckGet){
+        return routeService.getStateCheck(stateCheckGet);
+    }
 }

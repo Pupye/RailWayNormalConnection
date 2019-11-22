@@ -2,8 +2,12 @@ package com.sedbproj.Railways.Services;
 
 import com.sedbproj.Railways.Entities.BookEntity;
 import com.sedbproj.Railways.Entities.RouteEntity;
+import com.sedbproj.Railways.Entities.StationEntity;
 import com.sedbproj.Railways.Errors.TrainIsBusyException;
 import com.sedbproj.Railways.Repositories.RouteRepository;
+import com.sedbproj.Railways.Repositories.StationRepository;
+import com.sedbproj.Railways.Wrappers.StateCheckGet;
+import com.sedbproj.Railways.Wrappers.StateCheckWrapper;
 import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,9 @@ public class RouteService {
 
     @Autowired
     RouteRepository routeRepository;
+
+    @Autowired
+    StationRepository stationRepository;
 
     public void createNewInstanceRoute (RouteEntity route) throws RuntimeException{
         //TODO you may consider whether train is available
@@ -50,5 +57,24 @@ public class RouteService {
     public String getArrivalTimeByRouteIdAndStationId(int routeId, int arriveStationId) {
         Timestamp arrivalDate = routeRepository.getArrivalTimeByStationAndRouteId(routeId, arriveStationId);
         return arrivalDate == null ? null : arrivalDate.toString();
+    }
+
+    public StateCheckWrapper getStateCheck(StateCheckGet stateCheckGet) {
+        String arrivalTime = getArrivalTimeByRouteIdAndStationId(stateCheckGet.getRouteId(), stateCheckGet.getArrStationId());
+        String depTime = getDepartureTimeByRouteIdAndStationId(stateCheckGet.getRouteId(), stateCheckGet.getDepStationId());
+        Integer trainId =  routeRepository.getTrainIdByRouteId(stateCheckGet.getRouteId());
+        StationEntity arrStation = stationRepository.findByStationId(stateCheckGet.getArrStationId());
+        StationEntity depStation = stationRepository.findByStationId(stateCheckGet.getDepStationId());
+        StateCheckWrapper build = new StateCheckWrapper(
+                trainId,
+                arrStation.getName(),
+                arrStation.getCity(),
+                arrivalTime,
+                depStation.getName(),
+                depStation.getCity(),
+                depTime
+        );
+
+        return build;
     }
 }
